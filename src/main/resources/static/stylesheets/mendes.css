@@ -1,0 +1,68 @@
+/*
+######################
+# UTILIDADES
+######################
+*/
+.ms-icon-large {
+	font-size: 24px;
+}
+
+.ms-required > .control-label:after {
+	content: "*";
+}
+
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Field Action */
+.ms-field-action {
+	display: flex;
+}
+
+.ms-field-action-icon {
+	margin: 6px 0 0 5px;
+}
+
+/* Upload */
+.ms-upload {
+	padding: 15px;	
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	background: #fafafa;	
+	text-align: center;
+}
+
+#ms-upload-color {
+	font-weight: bold;
+	color: #4e73df;
+}
+
+.ms-upload-form-file {
+	display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1px;
+}
+
+.ms-upload-form-file > input[type=file] {
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    
+    font-size: 500px;
+}
+
+/* Colunas - Pesquisa de Veículos */
+.table-veiculos-col-foto {
+	min-width: 50px;
+	width: 50px;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:mendes="http://mendes.frigorifico.com">
+
+<head>
+	
+	<title>Cadastro de Visitante</title>
+	
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
+	
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+	
+		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Cadastro de Visitante</h1>				
+		</div>
+		<br>
+			
+		<form action="" method="post">	
+			
+			<div class="row">
+			    <div class="col-sm-4 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="nome">Nome</label> 
+			        <input type="text" class="form-control" id="" aria-describedby="nome" placeholder="Digite o nome"> 
+			        <small id="emailHelp" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-4 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="rg">RG</label> 
+			        <input type="text" class="form-control" id="" aria-describedby="rg" placeholder="Digite o RG"> 
+			        <small id="rg" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-4 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="cpf">CPF</label> 
+			        <input type="text" class="form-control" id="" aria-describedby="cpf" placeholder="Digite o CPF"> 
+			        <small class="form-text text-muted"></small>
+			    </div>
+			</div>
+		
+			<div class="row">
+			    <div class="col-sm-6 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="telefone">Telefone</label> 
+			        <input type="text" class="form-control phone" id="" aria-describedby="telefone" placeholder="Digite o telefone">
+			        <small id="telefone" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-6 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="empresa">Empresa</label> 
+			        <input type="text" class="form-control" id="" placeholder="Digite o nome da empresa">
+			        <small class="form-text text-muted"></small>
+			    </div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-12 form-group port-required">
+				<label class="control-label font-weight-bold">Foto</label>
+					
+					<div class="js-container-foto-veiculo" th:attr="data-url-fotos=@{/fotos}">	
+						<div id="upload-drop" class="ms-upload">
+							<i class="fa fa-upload"></i>
+							<span>Arraste a foto aqui ou </span>
+							<a class="ms-upload-form-file" id="ms-upload-color">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+						</div>
+					</div>			
+				</div>			
+			</div>
+					
+			<div class="form-group" align="center">
+				<button type="submit" class="btn btn-primary btn-sm">
+					<i class="fas fa-check"></i> Salvar
+				</button>
+				<button type="submit" class="btn btn-secondary btn-sm">
+					<i class="fas fa-undo-alt"></i> Voltar
+				</button>			
+			</div>   	
+			
+		</form>
+		
+	</div>
+	
+<th:block layout:fragment="javascript-extra">	
+	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/veiculo.upload-foto.js}"></script>		
+</th:block>
+
+</body>
+
+</html>

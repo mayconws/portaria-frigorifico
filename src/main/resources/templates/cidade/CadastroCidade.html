@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+	
+	<title>Cadastro de Cidade</title>
+	
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+	
+		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Cadastro de Cidade</h1>				
+		</div>
+		<br>
+			
+		<form action="" method="post">
+			
+			<div class="container col-md-8">
+			
+				<div class="row">		
+				    <div class="col-sm-6 form-group ms-required">
+				        <label class="control-label font-weight-bold" for="nome">Nome</label>
+				        <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Digite o nome da cidade">
+				        <small id="nome" class="form-text text-muted"></small>
+				    </div>
+				    <div class="col-sm-6 form-group ms-required">
+				        <label class="control-label font-weight-bold" for="estado">Estado</label> 
+				        <select class="form-control">
+				            <option value="0">Selecione um Estado</option>        
+				        </select>
+				    </div>		
+				</div>
+			
+			</div>
+			
+			<div class="form-group" align="center">
+				<button type="submit" class="btn btn-primary btn-sm">
+					<i class="fas fa-check"></i> Salvar
+				</button>
+				<button type="submit" class="btn btn-secondary btn-sm">
+					<i class="fas fa-undo-alt"></i> Voltar
+				</button>			
+			</div>   	
+			
+		</form>
+		
+	</div> 
+
+</body>
+
+</html>

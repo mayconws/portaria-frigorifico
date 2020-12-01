@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:mendes="http://mendes.frigorifico.com">
+
+<head>
+	
+	<title>Controle de Veículo</title>
+	
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+	
+		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Controle de Veículo</h1>				
+		</div>
+		<br>
+		
+		<div class="row">		
+			<!-- Card Total de veículos -->
+			<div class="col-sm-4">
+			    <div class="card border-left-primary shadow h-100 py-2">
+			        <div class="card-body">
+			            <div class="row no-gutters align-items-center">
+			                <div class="col mr-2">
+			                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de
+			                        Veículos</div>
+			                    <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+			                </div>
+			                <div class="col-auto">
+			                    <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+			<!-- Card Situação do veículo -->
+			<div class="col-sm-4">
+			    <div class="card border-left-success shadow h-100 py-2">
+			        <div class="card-body">
+			            <div class="row no-gutters align-items-center">
+			                <div class="col mr-2">
+			                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Situação do
+			                        Veículo</div>
+			                    <div class="h5 mb-0 font-weight-bold text-gray-800">Status </div>
+			                </div>
+			                <div class="col-auto">
+			                    <i class="fas fa-adjust fa-2x text-gray-300"></i>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+			<!-- Card Veículos diários -->
+			<div class="col-sm-4">
+			    <div class="card border-left-info shadow h-100 py-2">
+			        <div class="card-body">
+			            <div class="row no-gutters align-items-center">
+			                <div class="col mr-2">
+			                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Veículos na data
+			                        de Hoje</div>
+			                    <div class="h5 mb-0 font-weight-bold text-gray-800">1 </div>
+			                </div>
+			                <div class="col-auto">
+			                    <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>		
+		</div>
+		
+		<p class="mb-4">		
+			
+		<form action="" method="post">
+			
+			<div class="row">
+			    <div class="col-sm-2 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="data">Data da Chegada</label>
+			        <input type="text" class="form-control data" id="data" aria-describedby="data" data-provide="datepicker" data-date-language="pt-BR"> 
+			            <small id="data" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-2 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="horarioCheada">Horário da Chegada</label>
+			        <input type="time" class="form-control" id="horarioCheada" aria-describedby="horarioCheada"> 
+			        <small id="horarioCheada" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-4 form-group ms-required">
+			        <label id="veiculo" class="control-label font-weight-bold">Veículo</label>
+			        <select class="form-control">
+			            <option value="0">Selecione um Veículo</option>
+			        </select>
+			    </div>
+			    <div class="col-sm-4 form-group ms-required">
+			        <label id="motorista" class="control-label font-weight-bold">Motorista</label>
+			        <select class="form-control">
+			            <option value="0">Selecione um Motorista</option>
+			        </select>
+			    </div>
+			</div>
+			
+			<div class="row">
+			    <div class="col-sm-4 form-group ms-required">
+			        <label id="status" class="control-label font-weight-bold">Situação do veículo</label>
+			        <select class="form-control">
+			            <option value="">Selecione uma Opção</option>
+			            <option value="0">Vazio</option>
+			            <option value="1">Carregado</option>
+			        </select>
+			    </div>
+			    <div class="col-sm-8 form-group ms-required">
+			        <label id="veiculo" class="control-label font-weight-bold">Observação da Chegada</label>
+			        <textarea class="form-control" rows="2" cols="50"></textarea>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-sm-2 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
+			        <input type="text" class="form-control data"  id="data" aria-describedby="data" data-provide="datepicker" data-date-language="pt-BR">
+			            <small id="data" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-2 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="horarioCheada">Horário da Saída</label>
+			        <input type="time" class="form-control" id="horarioCheada" aria-describedby="horarioCheada">
+			            <small id="horarioCheada" class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-8 form-group port-required">
+			        <label id="veiculo" class="control-label font-weight-bold">Observação da Saída</label>
+			        <textarea class="form-control" rows="2" cols="50"></textarea>
+			    </div>
+			</div>
+			
+			<div class="form-group" align="center">
+				<button type="submit" class="btn btn-primary btn-sm">
+					<i class="fas fa-check"></i> Salvar
+				</button>
+				<button type="submit" class="btn btn-secondary btn-sm">
+					<i class="fas fa-undo-alt"></i> Voltar
+				</button>			
+			</div>   	
+			
+		</form>
+		
+	</div> 
+
+</body>
+
+</html>

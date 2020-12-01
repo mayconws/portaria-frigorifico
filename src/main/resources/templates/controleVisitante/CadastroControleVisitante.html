@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:mendes="http://mendes.frigorifico.com">
+
+<head>
+	
+	<title>Controle de Visitante</title>
+	
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+	
+		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Controle de Visitante</h1>				
+		</div>
+		<br>
+		
+	<div class="row">
+	    <!-- Card Total de Visitantes -->
+	    <div class="col-sm-6">
+	        <div class="card border-left-primary shadow h-100 py-2">
+	            <div class="card-body">
+	                <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de
+	                            Visitantes</div>
+	                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+	                    </div>
+	                    <div class="col-auto">
+	                        <i class="fas fas fa-users fa-4x text-gray-300"></i>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	
+	    <!-- Card Visitantes diários -->
+	    <div class="col-sm-6">
+	        <div class="card border-left-success shadow h-100 py-2">
+	            <div class="card-body">
+	                <div class="row no-gutters align-items-center">
+	                    <div class="col mr-2">
+	                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitantes na data
+	                            de Hoje</div>
+	                        <div class="h5 mb-0 font-weight-bold text-gray-800">1 </div>
+	                    </div>
+	                    <div class="col-auto">
+	                        <i class="fas fas fa-male fa-4x text-gray-300"></i>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<p class="mb-4">
+			
+		<form action="" method="post">
+			
+			<div class="row">
+			    <div class="col-sm-3 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="data">Data da Entrada</label>
+			        <input type="text" class="form-control" id="data" aria-describedby="data" placeholder="Informe a data de entrada" data-provide="datepicker" data-date-language="pt-BR">
+			        <small class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-3 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="horario">Hora da Entrada</label>
+			        <input type="time" class="form-control" id="horario" aria-describedby="data">
+			        <small class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-3 form-group ms-required">
+			        <label id="motorista" class="control-label font-weight-bold">Visitante</label>
+			        <select class="form-control">
+			            <option value="0">Selecione um Visitante</option>
+			        </select>
+			    </div>
+			    <div class="col-sm-3 form-group ms-required">
+			        <label id="motorista" class="control-label font-weight-bold">Setor da Empresa</label>
+			        <select class="form-control">
+			            <option value="0">Selecione um Setor</option>
+			        </select>
+			    </div>
+			</div>
+
+			<div class="row">
+			    <div class="col-sm-6 form-group ms-required">
+			        <label id="observacao" class="control-label font-weight-bold">Observação</label>
+			        <textarea class="form-control" rows="2" cols="50"></textarea>
+			    </div>
+			    <div class="col-sm-3 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
+			        <input type="text" class="form-control" id="data" aria-describedby="data" placeholder="Informe a data de saída" data-provide="datepicker" data-date-language="pt-BR"> 
+			            <small class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-3 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="horarioSaida">Hora da Saída</label>
+			        <input type="time" class="form-control" id="horarioSaida" aria-describedby="data">
+			        <small class="form-text text-muted"></small>
+			    </div>
+			</div>
+			
+			<div class="form-group" align="center">
+				<button type="submit" class="btn btn-primary btn-sm">
+					<i class="fas fa-check"></i> Salvar
+				</button>
+				<button type="submit" class="btn btn-secondary btn-sm">
+					<i class="fas fa-undo-alt"></i> Voltar
+				</button>			
+			</div>   	
+			
+		</form>
+		
+	</div> 
+
+</body>
+
+</html>

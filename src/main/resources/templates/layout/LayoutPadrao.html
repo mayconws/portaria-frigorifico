@@ -19,6 +19,10 @@
 
   <!-- Custom styles for this template-->
   <link th:href="@{/layout/css/sb-admin-2.min.css}" rel="stylesheet">
+  <link th:href="@{/stylesheets/mendes.css}" rel="stylesheet">
+  
+  <!-- Icon Favicon-->
+  <link rel="shortcut icon" th:href="@{/images/eye-blue.png}"/>
 
 </head>
 
@@ -80,6 +84,12 @@
   <!-- Page level custom scripts -->
   <script th:src="@{/layout/js/demo/chart-area-demo.js}"></script>
   <script th:src="@{/layout/js/demo/chart-pie-demo.js}"></script>
+  
+  <script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+  <script th:src="@{/javascripts/mendes.js}"></script>
+    
+  <!-- JavaScript Extra -->
+  <th:block layout:fragment="javascript-extra"></th:block>
 
 </body>
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+	
+	<title>Cadastro de Usuário</title>
+	
+	<!-- Switch Button -->
+	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div layout:fragment="conteudo">
+	
+	<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Cadastro de Usuário</h1>				
+	</div>
+	<br>
+	
+	<form action="" method="post">
+	
+	    <div class="row">
+	        <div class="col-sm-5 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="nome">Nome</label>
+	            <input type="text" class="form-control" id="" aria-describedby="nomeHelp" placeholder="Digite o nome">
+	            <small id="nome" class="form-text text-muted"></small>
+	        </div>
+	        <div class="col-sm-3 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="dtNasc">Data de Nascimento</label>
+	            <input type="text" class="form-control data" id="dtNasc" aria-describedby="emailHelp" placeholder="Digite a data de nascimento" data-provide="datepicker" data-date-language="pt-BR"> 
+	            <small id="dtNasc" class="form-text text-muted"></small>
+	        </div>
+	        <div class="col-sm-4 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="email">Email</label>
+	            <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Digite o email">
+	            <small class="form-text text-muted"></small>
+	        </div>
+	    </div>
+	
+	    <div class="row">
+	        <div class="col-sm-4 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="senha">Senha</label> 
+	            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Digite a senha">
+	            <small id="senha" class="form-text text-muted"></small>
+	        </div>
+	        <div class="col-sm-4 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="senha">Confirmar Senha</label>
+	            <input type="password" class="form-control" id="confirm_password" aria-describedby="passwordHelp" placeholder="Digite a senha">
+	            <small id="senha" class="form-text text-muted"></small>
+	        </div>
+	        <div class="col-sm-4 form-group ms-required">
+	            <label class="control-label font-weight-bold" for="">Status</label><br> 
+	            <input type="checkbox" checked data-toggle="toggle" data-on="Ativo" data-off="Inativo" data-onstyle="primary" data-offstyle="danger"data-height="25">
+	        </div>
+	    </div>
+	
+	     <div class="row">
+	        <div class="form-group col-sm-6 ms-required">
+	            <label class="control-label font-weight-bold">Grupos</label> 
+	            <div>
+	                  <div class="checkbox  checkbox-inline"> 
+	                    <input type="checkbox" />
+	                    <label>Administrador</label>
+	                </div>
+	                <div class="checkbox  checkbox-inline"> 
+	                    <input type="checkbox" />
+	                    <label>Vendedor</label>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div class="form-group" align="center">
+	        <button type="submit" class="btn btn-primary btn-sm">
+	            <i class="fas fa-check"></i> Salvar
+	        </button>
+	        <button type="submit" class="btn btn-secondary btn-sm">
+	            <i class="fas fa-undo-alt"></i> Voltar
+	        </button>			
+	    </div>   	
+	    
+	</form>
+	
+	</div>
+
+<th:block layout:fragment="javascript-extra">
+	<!-- Switch Button -->
+	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+</th:block>
+
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+	
+	<title>Cadastro de Transportadora</title>
+	
+</head>
+
+<body>
+
+    <div layout:fragment="conteudo">
+
+        <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Transportadora</h1>
+        </div>
+        <br>
+
+        <form action="" method="post">
+
+            <div class="row">
+                <div class="col-sm-12 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="nome">Nome</label>
+                    <input type="text" class="form-control" id="" placeholder="Digite o nome">
+                    <small id="nome" class="form-text text-muted"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group port-required">
+                    <label for="origem" class="control-label font-weight-bold">Tipo
+                        pessoa</label>
+                    <div>
+                        <th:block th:each="tipoPessoa : ${tiposPessoa}">
+                            <div class="radio  radio-inline">
+                                <input type="radio" name="tipo-pessoa" class="js-radio-tipo-pessoa">
+                                <label class="control-label">Física</label>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 form-group port-required">
+                    <label class="control-label font-weight-bold" for="cpfOuCnpj">CPF/CNPJ</label>
+                    <input type="text" class="form-control" id="cpfOuCnpj"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 form-group port-required">
+                    <label class="control-label font-weight-bold" for="cep">CEP</label>
+                    <input type="text" class="form-control cep" name="cep" id="cep"
+                        aria-describedby="cep" placeholder="Digite o cep"> <small id="cep"
+                        class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-5 form-group port-required">
+                    <label class="control-label font-weight-bold" for="endereco">Endereço</label>
+                    <input type="text" class="form-control" name="rua" id="rua"
+                        aria-describedby="email" placeholder="Digite o endereço">
+                    <small id="endereco" class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-5 form-group port-required">
+                    <label class="control-label font-weight-bold" for="bairro">Bairro</label>
+                    <input type="text" class="form-control" name="bairro" id="bairro"
+                        aria-describedby="bairro" placeholder="Digite o bairro">
+                    <small id="bairro" class="form-text text-muted"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group port-required">
+                    <label class="control-label font-weight-bold" for="complemento">Complemento</label>
+                    <input type="text" class="form-control" id="" aria-describedby="complemento" placeholder="Digite o complemento"> 
+                        <small id="complemento" class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group port-required">
+                    <label class="control-label font-weight-bold" for="numero">Número</label>
+                    <input type="text" class="form-control" id="" aria-describedby="cep" placeholder="Digite o número">
+                    <small id="numero" class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group port-required">
+                    <label class="control-label font-weight-bold" for="telefone">Telefone</label>
+                    <input type="text" class="form-control js-phone-number" id="telefone" aria-describedby="telefone" placeholder="Digite o telefone"> 
+                    <small id="telefone" class="form-text text-muted"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label for="email" class="control-label font-weight-bold">E-mail</label>
+                    <input type="text" class="form-control" id="email"/> <small id="email"
+                        class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group port-required">
+                    <label id="estado" class="control-label font-weight-bold">Estado</label>
+                    <select class="form-control">
+                        <option value="0">Selecione um Estado</option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="col-sm-4 form-group port-required">
+                    <label id="cidade" class="control-label font-weight-bold">Cidade</label>
+                    <select class="form-control">
+                        <option value="0">Selecione uma Cidade</option>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-undo-alt"></i> Voltar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
