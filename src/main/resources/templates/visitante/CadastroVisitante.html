@@ -2,7 +2,7 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
@@ -22,22 +22,24 @@
 		</div>
 		<br>
 			
-		<form action="" method="post">	
+		<form th:object="${visitante}" action="" method="post">
+		
+		<mendes:message/>
 			
 			<div class="row">
 			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="nome">Nome</label> 
-			        <input type="text" class="form-control" id="" aria-describedby="nome" placeholder="Digite o nome"> 
-			        <small id="emailHelp" class="form-text text-muted"></small>
+			        <input type="text" class="form-control" th:field="*{nome}" aria-describedby="nome" placeholder="Digite o nome"> 
+			        <small class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="rg">RG</label> 
-			        <input type="text" class="form-control" id="" aria-describedby="rg" placeholder="Digite o RG"> 
+			        <input type="text" class="form-control" th:field="*{rg}"aria-describedby="rg" placeholder="Digite o RG"> 
 			        <small id="rg" class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="cpf">CPF</label> 
-			        <input type="text" class="form-control" id="" aria-describedby="cpf" placeholder="Digite o CPF"> 
+			        <input type="text" class="form-control cpf" th:field="*{cpf}" aria-describedby="cpf" placeholder="Digite o CPF"> 
 			        <small class="form-text text-muted"></small>
 			    </div>
 			</div>
@@ -45,12 +47,12 @@
 			<div class="row">
 			    <div class="col-sm-6 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="telefone">Telefone</label> 
-			        <input type="text" class="form-control phone" id="" aria-describedby="telefone" placeholder="Digite o telefone">
+			        <input type="text" class="form-control telefone" th:field="*{telefone}" aria-describedby="telefone" placeholder="Digite o telefone">
 			        <small id="telefone" class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-6 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="empresa">Empresa</label> 
-			        <input type="text" class="form-control" id="" placeholder="Digite o nome da empresa">
+			        <input type="text" class="form-control" th:field="*{empresa}" placeholder="Digite o nome da empresa">
 			        <small class="form-text text-muted"></small>
 			    </div>
 			</div>
@@ -79,6 +81,8 @@
 			</div>   	
 			
 		</form>
+		
+		<th:block th:replace="hbs/FotoVeiculo"></th:block>
 		
 	</div>
 	

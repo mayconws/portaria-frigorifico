@@ -2,7 +2,7 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
@@ -30,7 +30,7 @@
 				<div class="col-sm-4 form-group ms-required" mendes:classforerror="placa">
 					<label class="control-label font-weight-bold" for="placa">Placa</label>
 					<input type="text" class="control-label form-control placa" id="placa" th:field="*{placa}">
-					<small id="nome" class="form-text text-muted"></small>
+					<small class="form-text text-muted"></small>
 				</div>
 				<div class="col-sm-4 form-group ms-required" mendes:classforerror="modelo">
 					<label class="control-label font-weight-bold" for="modelo">Modelo do Veículo</label>
@@ -58,9 +58,6 @@
 			<div class="row">
 				<div class="col-sm-12 form-group port-required">
 				<label class="control-label font-weight-bold">Foto</label>
-				
-				<input type="hidden" th:field="*{foto}">
-				<input type="hidden" th:field="*{contentType}">
 					
 					<div class="js-container-foto-veiculo" th:attr="data-url-fotos=@{/fotos}">	
 						<div id="upload-drop" class="ms-upload">

@@ -3,25 +3,19 @@ package com.frigorifico.mendes.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "cidade")
-public class Cidade implements Serializable {
-
+@Table(name = "setor")
+public class Setor implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -29,11 +23,8 @@ public class Cidade implements Serializable {
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 	
-	@NotNull(message = "O estado é obrigatório")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_estado")
-	@JsonIgnore
-	private Estado estado;
+	@NotBlank(message = "O responsável do setor é obrigatório")
+	private String nomeResponsavel;
 
 	public Long getCodigo() {
 		return codigo;
@@ -51,12 +42,12 @@ public class Cidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public String getNomeResponsavel() {
+		return nomeResponsavel;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setNomeResponsavel(String nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
 	}
 
 	@Override
@@ -75,13 +66,13 @@ public class Cidade implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		Setor other = (Setor) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
+	}	
 
 }

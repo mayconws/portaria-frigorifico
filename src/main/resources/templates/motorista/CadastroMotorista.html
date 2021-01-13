@@ -2,7 +2,7 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
@@ -30,7 +30,7 @@
 			    </div>
 			    <div class="col-sm-6 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="telefone">Telefone</label>
-			        <input type="text" class="form-control phone" id="telefone" placeholder="Digite o telefone">
+			        <input type="text" class="form-control telefone" placeholder="Digite o telefone">
 			        <small id="telefone" class="form-text text-muted"></small>
 			    </div>
 			</div>

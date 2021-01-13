@@ -34,7 +34,7 @@
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 
 		<!-- Thymeleaf - Layout Dialect -->
-		<thymeleaf-layout-dialect.version>2.0.0-SNAPSHOT</thymeleaf-layout-dialect.version>
+		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
@@ -53,6 +53,8 @@
 		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 
+		<!-- Thymeleaf extras data attribute -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 	</properties>
 
 	<build>
@@ -74,7 +76,6 @@
 					<driver>com.mysql.jdbc.Driver</driver>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
@@ -139,7 +140,7 @@
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
-			<version>2.0.0</version>
+			<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -211,17 +212,14 @@
 			<scope>compile</scope>
 		</dependency>
 
-	</dependencies>
+		<!-- Thymeleaf extras data attribute -->
+		<dependency>
+			<groupId>com.github.mxab.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-data-attribute</artifactId>
+			<version>${thymeleaf-extras-data-attribute.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-	<repositories>
-		<repository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+	</dependencies>
 
 </project>

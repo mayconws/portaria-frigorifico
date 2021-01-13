@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
+	xmlns:th="http://www.thymeleaf.org"	
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'">
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="layout/LayoutPadrao"
+	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
 	
@@ -19,94 +21,104 @@
         </div>
         <br>
 
-        <form action="" method="post">
+        <form th:object="${transportadora}" th:action="@{/transportadoras/nova}" method="post">
+        
+        	<mendes:message/>
 
             <div class="row">
                 <div class="col-sm-12 form-group ms-required">
                     <label class="control-label font-weight-bold" for="nome">Nome</label>
-                    <input type="text" class="form-control" id="" placeholder="Digite o nome">
-                    <small id="nome" class="form-text text-muted"></small>
+                    <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome">
+                    <small class="form-text text-muted"></small>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-4 form-group port-required">
+                <div class="col-sm-4 form-group ms-required">
                     <label for="origem" class="control-label font-weight-bold">Tipo
                         pessoa</label>
                     <div>
                         <th:block th:each="tipoPessoa : ${tiposPessoa}">
-                            <div class="radio  radio-inline">
-                                <input type="radio" name="tipo-pessoa" class="js-radio-tipo-pessoa">
-                                <label class="control-label">Física</label>
-                            </div>
-                        </th:block>
+							<div class="radio  radio-inline">
+								<input type="radio" name="tipo-pessoa" th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" 
+									th:field="*{tipoPessoa}" th:value="${tipoPessoa}" 
+									th:data-documento="${tipoPessoa.documento}" th:data-mascara="${tipoPessoa.mascara}"> 
+								<label class="control-label" th:for="|id_${tipoPessoa}|" 
+									th:text="${tipoPessoa.descricao}">Física</label>
+							</div>
+						</th:block>
                     </div>
                 </div>
 
-                <div class="col-sm-8 form-group port-required">
+                <div class="col-sm-8 form-group ms-required">
                     <label class="control-label font-weight-bold" for="cpfOuCnpj">CPF/CNPJ</label>
-                    <input type="text" class="form-control" id="cpfOuCnpj"/>
+                    <input type="text" class="form-control" th:field="*{cpfOuCnpj}" id="cpfOuCnpj"/>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-2 form-group port-required">
+                <div class="col-sm-2 form-group ms-required">
                     <label class="control-label font-weight-bold" for="cep">CEP</label>
-                    <input type="text" class="form-control cep" name="cep" id="cep"
-                        aria-describedby="cep" placeholder="Digite o cep"> <small id="cep"
-                        class="form-text text-muted"></small>
+                    <input type="text" class="form-control cep" name="cep" th:field="*{cep}"
+                        aria-describedby="cep" placeholder="Digite o cep"> 
+                        <small class="form-text text-muted"></small>
                 </div>
-                <div class="col-sm-5 form-group port-required">
+                <div class="col-sm-5 form-group ms-required">
                     <label class="control-label font-weight-bold" for="endereco">Endereço</label>
-                    <input type="text" class="form-control" name="rua" id="rua"
+                    <input type="text" class="form-control" name="rua" th:field="*{endereco}"
                         aria-describedby="email" placeholder="Digite o endereço">
-                    <small id="endereco" class="form-text text-muted"></small>
+                    <small class="form-text text-muted"></small>
                 </div>
-                <div class="col-sm-5 form-group port-required">
+                <div class="col-sm-5 form-group ms-required">
                     <label class="control-label font-weight-bold" for="bairro">Bairro</label>
-                    <input type="text" class="form-control" name="bairro" id="bairro"
+                    <input type="text" class="form-control" name="bairro" th:field="*{bairro}"
                         aria-describedby="bairro" placeholder="Digite o bairro">
-                    <small id="bairro" class="form-text text-muted"></small>
+                    <small class="form-text text-muted"></small>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-4 form-group port-required">
+                <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="complemento">Complemento</label>
-                    <input type="text" class="form-control" id="" aria-describedby="complemento" placeholder="Digite o complemento"> 
-                        <small id="complemento" class="form-text text-muted"></small>
+                    <input type="text" class="form-control" th:field="*{complemento}" placeholder="Digite o complemento"> 
+                        <small class="form-text text-muted"></small>
                 </div>
-                <div class="col-sm-4 form-group port-required">
+                <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="numero">Número</label>
-                    <input type="text" class="form-control" id="" aria-describedby="cep" placeholder="Digite o número">
-                    <small id="numero" class="form-text text-muted"></small>
+                    <input type="text" class="form-control" th:field="*{numero}" placeholder="Digite o número">
+                    <small class="form-text text-muted"></small>
                 </div>
-                <div class="col-sm-4 form-group port-required">
+                <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="telefone">Telefone</label>
-                    <input type="text" class="form-control js-phone-number" id="telefone" aria-describedby="telefone" placeholder="Digite o telefone"> 
-                    <small id="telefone" class="form-text text-muted"></small>
+                    <input type="text" class="form-control telefone" th:field="*{telefone}" placeholder="Digite o telefone"> 
+                    <small class="form-text text-muted"></small>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-4 form-group">
+                <div class="col-sm-4 form-group ms-required">
                     <label for="email" class="control-label font-weight-bold">E-mail</label>
-                    <input type="text" class="form-control" id="email"/> <small id="email"
-                        class="form-text text-muted"></small>
+                    <input type="text" class="form-control" th:field="*{email}" /> 
+                    <small class="form-text text-muted"></small>
                 </div>
-                <div class="col-sm-4 form-group port-required">
-                    <label id="estado" class="control-label font-weight-bold">Estado</label>
-                    <select class="form-control">
-                        <option value="0">Selecione um Estado</option>
-                        <option></option>
-                    </select>
+                <div class="col-sm-4 form-group ms-required">
+                   <label class="control-label font-weight-bold" for="estado">Estado</label>
+					<select th:field="*{estado}" id="estado" class="form-control">
+	                    <option value="">Selecione o estado</option>
+	                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option>
+	                </select>
                 </div>
-                <div class="col-sm-4 form-group port-required">
-                    <label id="cidade" class="control-label font-weight-bold">Cidade</label>
-                    <select class="form-control">
-                        <option value="0">Selecione uma Cidade</option>
-                        <option></option>
-                    </select>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="cidade">Cidade</label>
+					<div class="ms-field-action">
+						<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidade} != null ? *{cidade.codigo}"/>
+						<select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{cidade}">
+						</select>
+						
+						<div class="ms-field-action-icon js-img-loading" style="display: none">
+							<img th:src="@{/images/mini-loading.gif}"/>
+						</div>
+					</div>
                 </div>
             </div>
 
@@ -122,6 +134,11 @@
         </form>
 
     </div>
+    
+    <th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/transportadora.mascara-cpf-cnpj.js}"></script>
+		<script th:src="@{/javascripts/transportadora.combo-estado-cidade.js}"></script>
+	</th:block>
 
 </body>
 

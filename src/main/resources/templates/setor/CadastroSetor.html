@@ -2,7 +2,7 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'"
+	layout:decorate="layout/LayoutPadrao"
 	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
@@ -20,18 +20,18 @@
 		</div>
 		<br>
 			
-		<form action="" method="post">	
+		<form th:object="${setor}" action="" method="post">	
 			
 			<div class="row">
 			    <div class="col-6 ms-required">
-			        <label class="control-label font-weight-bold" for="nome">Nome</label>
-			        <input type="text" class="form-control" id="" placeholder="Digite o nome do setor">
-			        <small id="nome" class="form-text text-muted"></small>
+			        <label class="control-label font-weight-bold" for="nome">Nome do Setor</label>
+			        <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome do setor">
+			        <small class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-6 ms-required">
 			        <label class="control-label font-weight-bold" for="setor">Responsável pelo Setor</label>
-			        <input type="text" class="form-control" id="" placeholder="Digite o nome do responsável">
-			        <small id="setor" class="form-text text-muted"></small>
+			        <input type="text" class="form-control" th:field="*{nomeResponsavel}" placeholder="Digite o nome do responsável">
+			        <small class="form-text text-muted"></small>
 			    </div>
 			</div>
 					

@@ -2,7 +2,8 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'">
+	layout:decorate="layout/LayoutPadrao"
+	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
 	
@@ -19,21 +20,24 @@
 		</div>
 		<br>
 			
-		<form action="" method="post">
+		<form th:object="${cidade}" th:action="@{/cidades/nova}" method="post">
+		
+			<mendes:message/>
 			
 			<div class="container col-md-8">
 			
 				<div class="row">		
 				    <div class="col-sm-6 form-group ms-required">
 				        <label class="control-label font-weight-bold" for="nome">Nome</label>
-				        <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Digite o nome da cidade">
+				        <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome da cidade">
 				        <small id="nome" class="form-text text-muted"></small>
 				    </div>
 				    <div class="col-sm-6 form-group ms-required">
 				        <label class="control-label font-weight-bold" for="estado">Estado</label> 
-				        <select class="form-control">
-				            <option value="0">Selecione um Estado</option>        
-				        </select>
+				        <select th:field="*{estado}" id="estado" class="form-control">
+		                    <option value="">Selecione o estado</option>
+		                     <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option>
+		                </select>
 				    </div>		
 				</div>
 			

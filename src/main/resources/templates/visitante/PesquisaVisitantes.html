@@ -7,7 +7,7 @@
 
 <head>
 	
-	<title>Pesquisa de Veículo</title>
+	<title>Pesquisa de Visitantes</title>
 	
 	<link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 		
@@ -18,7 +18,7 @@
 	<div layout:fragment="conteudo">
 	
 		 <!-- Page Heading -->
-	         <h1 class="h3 mb-3 text-gray-800 text-center">Pesquisa de Veículos</h1>
+	         <h1 class="h3 mb-3 text-gray-800 text-center">Pesquisa de Visitantes</h1>
 	         
 	          <!-- DataTales Example -->
 	          <div class="card shadow mb-4">
@@ -31,18 +31,24 @@
 	                  <thead>
 	                    <tr>
 	                   	  <th class="text-center">Foto</th>
-	                      <th class="text-center">Placa</th>
-	                      <th class="text-center">Modelo do Veículo</th>
-	                      <th class="text-center">Ações</th>               
+	                      <th class="text-center">Nome</th>
+	                      <th class="text-center">RG</th>
+	                      <th class="text-center">CPF</th>
+	                      <th class="text-center">Telefone</th>
+	                      <th class="text-center">Empresa</th>
+	                      <th class="text-center">Ações</th>                   
 	                    </tr>
 	                  </thead>                
 	                  <tbody>
-	                    <tr th:each="veiculo : ${veiculos}">
+	                    <tr th:each="visitante : ${visitantes}">
 	                      <td class="text-center table-veiculos-col-foto">
-								<img th:src="@{/fotos/thumbnail.{foto}(foto=${veiculo.fotoOuMock})}" class="img-thumbnail"/>
+								<img th:src="@{/fotos/thumbnail.{foto}(foto=${visitante.fotoOuMock})}" class="img-thumbnail"/>
 						  </td>
-	                      <td class="text-center" th:text="${veiculo.placa}"></td>
-	                      <td class="text-center" th:text="${veiculo.modelo.nome}"></td>                     
+	                      <td class="text-center" th:text="${visitante.nome}"></td>
+	                      <td class="text-center" th:text="${visitante.rg}"></td>
+	                      <td class="text-center" th:text="${visitante.cpf}"></td>
+	                      <td class="text-center" th:text="${visitante.telefone}"></td> 
+	                      <td class="text-center" th:text="${visitante.empresa}"></td>                     
 	                      <td class="text-center">
 	                      	<a>
 							    <button type="button" class="btn btn-primary btn-sm">
