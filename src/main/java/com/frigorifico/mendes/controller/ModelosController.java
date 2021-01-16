@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frigorifico.mendes.model.Modelo;
+import com.frigorifico.mendes.repository.Modelos;
 import com.frigorifico.mendes.service.CadastroModeloService;
 import com.frigorifico.mendes.service.exception.NomeModeloJaCadastradoException;
 
@@ -25,6 +27,9 @@ public class ModelosController {
 
 	@Autowired
 	private CadastroModeloService cadastroModeloService;
+	
+	@Autowired
+	private Modelos modelos;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Modelo modelo) {
@@ -60,6 +65,13 @@ public class ModelosController {
 
 		modelo = cadastroModeloService.salvar(modelo);
 		return ResponseEntity.ok(modelo);
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar() {
+		ModelAndView mv = new ModelAndView("modelo/PesquisaModelos");		
+		mv.addObject("modelos", modelos.findAll());
+		return mv;
 	}
 
 }

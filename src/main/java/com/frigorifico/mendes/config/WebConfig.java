@@ -1,18 +1,23 @@
 package com.frigorifico.mendes.config;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.BeansException;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -33,8 +38,10 @@ import com.frigorifico.mendes.controller.VeiculosController;
 import com.frigorifico.mendes.controller.converter.CidadeConverter;
 import com.frigorifico.mendes.controller.converter.EstadoConverter;
 import com.frigorifico.mendes.controller.converter.ModeloConverter;
+import com.frigorifico.mendes.controller.converter.TransportadoraConverter;
 import com.frigorifico.mendes.thymeleaf.MendesDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+import com.google.common.cache.CacheBuilder;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -92,12 +99,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new ModeloConverter());
 		conversionService.addConverter(new CidadeConverter());
 		conversionService.addConverter(new EstadoConverter());
+		conversionService.addConverter(new TransportadoraConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 		
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
+		
+		// API de Datas do Java 8
+		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
+		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dateTimeFormatter.registerFormatters(conversionService);
 		
 		return conversionService;
 	}
@@ -109,7 +122,21 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	
 	@Bean
 	public CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager();
+		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
+				.maximumSize(3)
+				.expireAfterAccess(20, TimeUnit.SECONDS);
+		
+		GuavaCacheManager cacheManager = new GuavaCacheManager();
+		cacheManager.setCacheBuilder(cacheBuilder);
+		return cacheManager;
+	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
+		bundle.setBasename("classpath:/messages");
+		bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de/
+		return bundle;
 	}
 
 }

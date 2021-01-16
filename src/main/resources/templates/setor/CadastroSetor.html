@@ -20,7 +20,9 @@
 		</div>
 		<br>
 			
-		<form th:object="${setor}" action="" method="post">	
+		<form th:object="${setor}" th:action="@{/transportadoras/nova}" method="post">	
+			
+			<mendes:message/>
 			
 			<div class="row">
 			    <div class="col-6 ms-required">

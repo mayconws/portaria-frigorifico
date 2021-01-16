@@ -35,6 +35,11 @@ public class Veiculo implements Serializable {
 	@JoinColumn(name = "codigo_modelo")
 	private Modelo modelo;
 	
+	@NotNull(message = "A transportadora é obrigatória")
+	@ManyToOne
+	@JoinColumn(name = "codigo_transportadora")
+	private Transportadora transportadora;
+	
 	private String foto;
 
 	@Column(name = "content_type")
@@ -68,7 +73,15 @@ public class Veiculo implements Serializable {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
-	}	
+	}
+
+	public Transportadora getTransportadora() {
+		return transportadora;
+	}
+
+	public void setTransportadora(Transportadora transportadora) {
+		this.transportadora = transportadora;
+	}
 
 	public String getFoto() {
 		return foto;

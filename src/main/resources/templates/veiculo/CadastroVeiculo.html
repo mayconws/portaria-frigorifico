@@ -49,8 +49,9 @@
 				</div>
 				<div class="col-sm-4 form-group ms-required">
 					<label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
-					<select class="form-control">
-						<option value="0">Selecione uma Transportadora</option>				
+					<select class="form-control" th:field="*{transportadora}">
+						<option value="">Selecione uma Transportadora</option>
+						<option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}" th:text="${transportadora.nome}"></option>				
 					</select>
 				</div>           
 			</div>

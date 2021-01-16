@@ -20,42 +20,45 @@
 		</div>
 		<br>	
 			
-		<form action="" method="post">
+		<form action="" th:object="${motorista}" method="post">
+		
+			<mendes:message/>
 		
 			<div class="row">
-			    <div class="col-sm-6 form-group ms-required">
+			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="nome">Nome</label>
-			        <input type="text" class="form-control" id="" placeholder="Digite o nome">
-			        <small id="nome" class="form-text text-muted"></small>
+			        <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome">
+			        <small class="form-text text-muted"></small>
 			    </div>
-			    <div class="col-sm-6 form-group ms-required">
+			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="telefone">Telefone</label>
-			        <input type="text" class="form-control telefone" placeholder="Digite o telefone">
-			        <small id="telefone" class="form-text text-muted"></small>
+			        <input type="text" class="form-control telefone" th:field="*{telefone}" placeholder="Digite o telefone">
+			        <small class="form-text text-muted"></small>
+			    </div>
+			    <div class="col-sm-4 form-group ms-required">
+			        <label class="control-label font-weight-bold" for="rg">RG</label> 
+			        <input type="text" class="form-control" th:field="*{rg}" placeholder="Digite o rg">
+			        <small class="form-text text-muted"></small>
 			    </div>
 			</div>
 
-			<div class="row">
-			    <div class="col-sm-3 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="rg">RG</label> 
-			        <input type="text" class="form-control" id="rg" placeholder="Digite o rg">
-			        <small id="rg" class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-2 form-group ms-required">
+			<div class="row">			    
+			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="orgao">Orgão Expedidor</label> 
-			        <input type="text" class="form-control letras" id="orgao" placeholder="Orgão expedidor">
-			        <small id="rg" class="form-text text-muted"></small>
+			        <input type="text" class="form-control" th:field="*{orgaoExpedidor}" placeholder="Orgão expedidor">
+			        <small class="form-text text-muted"></small>
 			    </div>
-			    <div class="col-sm-3 form-group ms-required">
+			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="cpf">CPF</label>
-			        <input type="text" class="form-control" id="" placeholder="Digite o cpf" data-mask="000.000.000-00">
+			        <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o cpf" data-mask="000.000.000-00">
 			        <small class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-4 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
-			        <select class="form-control">
-			            <option value="0">Selecione uma Transportadora</option>            
-			        </select>
+			        <select class="form-control" th:field="*{transportadora}">
+						<option value="">Selecione uma Transportadora</option>
+						<option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}" th:text="${transportadora.nome}"></option>				
+					</select>
 			    </div>
 			</div>		
 			

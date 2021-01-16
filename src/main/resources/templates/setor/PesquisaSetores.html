@@ -7,7 +7,7 @@
 
 <head>
 	
-	<title>Pesquisa de Veículo</title>
+	<title>Pesquisa de Setores</title>
 	
 	<link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 		
@@ -18,7 +18,7 @@
 	<div layout:fragment="conteudo">
 	
 		 <!-- Page Heading -->
-	         <h1 class="h3 mb-3 text-gray-800 text-center">Pesquisa de Veículos</h1>
+	         <h1 class="h3 mb-3 text-gray-800 text-center">Pesquisa de Setores</h1>
 	         
 	          <!-- DataTales Example -->
 	          <div class="card shadow mb-4">
@@ -30,21 +30,15 @@
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                  <thead>
 	                    <tr>
-	                   	  <th class="text-center">Foto</th>
-	                      <th class="text-center">Placa</th>
-	                      <th class="text-center">Modelo do Veículo</th>
-	                      <th class="text-center">Transportadora</th>
-	                      <th class="text-center">Ações</th>               
+	                   	  <th class="text-center">Nome</th>
+	                   	  <th class="text-center">Responsável Setor</th>                       
+	                      <th class="text-center">Ações</th>                   
 	                    </tr>
 	                  </thead>                
 	                  <tbody>
-	                    <tr th:each="veiculo : ${veiculos}">
-	                      <td class="text-center table-veiculos-col-foto">
-								<img th:src="@{/fotos/thumbnail.{foto}(foto=${veiculo.fotoOuMock})}" class="img-thumbnail"/>
-						  </td>
-	                      <td class="text-center" th:text="${veiculo.placa}"></td>
-	                      <td class="text-center" th:text="${veiculo.modelo.nome}"></td>
-	                      <td class="text-center" th:text="${veiculo.transportadora.nome}"></td>                        
+	                    <tr th:each="setor : ${setores}">	        
+	                      <td class="text-center" th:text="${setor.nome}"></td>
+	                      <td class="text-center" th:text="${setor.nomeResponsavel}"></td>	       	                                                
 	                      <td class="text-center">
 	                      	<a>
 							    <button type="button" class="btn btn-primary btn-sm">

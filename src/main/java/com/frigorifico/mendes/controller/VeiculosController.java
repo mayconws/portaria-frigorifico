@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frigorifico.mendes.model.Veiculo;
 import com.frigorifico.mendes.repository.Modelos;
+import com.frigorifico.mendes.repository.Transportadoras;
 import com.frigorifico.mendes.repository.Veiculos;
 import com.frigorifico.mendes.service.CadastroVeiculoService;
 import com.frigorifico.mendes.service.exception.VeiculoJaCadastradoException;
@@ -29,12 +30,16 @@ public class VeiculosController {
 	private Veiculos veiculos;
 	
 	@Autowired
+	private Transportadoras transportadoras;
+	
+	@Autowired
 	private CadastroVeiculoService cadastroVeiculoService;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Veiculo veiculo) {
 		ModelAndView mv = new ModelAndView("veiculo/CadastroVeiculo");
-		mv.addObject("modelos", modelos.findAll());		
+		mv.addObject("modelos", modelos.findAll());
+		mv.addObject("transportadoras", transportadoras.findAll());	
 		return mv;
 	}
 
@@ -61,6 +66,7 @@ public class VeiculosController {
 	public ModelAndView pesquisar() {
 		ModelAndView mv = new ModelAndView("veiculo/PesquisaVeiculos");
 		mv.addObject("modelos", modelos.findAll());
+		mv.addObject("transportadoras", transportadoras.findAll());	
 		mv.addObject("veiculos", veiculos.findAll());
 		return mv;
 	}

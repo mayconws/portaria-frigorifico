@@ -2,6 +2,7 @@ package com.frigorifico.mendes.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Setor implements Serializable {
 	private String nome;
 	
 	@NotBlank(message = "O responsável do setor é obrigatório")
+	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
 
 	public Long getCodigo() {

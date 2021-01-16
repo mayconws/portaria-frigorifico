@@ -2,7 +2,8 @@
 <html lang="pt-br"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao">
+	layout:decorate="layout/LayoutPadrao"
+	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
 	
@@ -22,36 +23,38 @@
 	</div>
 	<br>
 	
-	<form action="" method="post">
+	<form th:object="${usuario}" action="" method="post">
+	
+		<mendes:message/>
 	
 	    <div class="row">
 	        <div class="col-sm-5 form-group ms-required">
 	            <label class="control-label font-weight-bold" for="nome">Nome</label>
-	            <input type="text" class="form-control" id="" aria-describedby="nomeHelp" placeholder="Digite o nome">
-	            <small id="nome" class="form-text text-muted"></small>
+	            <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome">
+	            <small class="form-text text-muted"></small>
 	        </div>
 	        <div class="col-sm-3 form-group ms-required">
 	            <label class="control-label font-weight-bold" for="dtNasc">Data de Nascimento</label>
-	            <input type="text" class="form-control data" id="dtNasc" aria-describedby="emailHelp" placeholder="Digite a data de nascimento" data-provide="datepicker" data-date-language="pt-BR"> 
-	            <small id="dtNasc" class="form-text text-muted"></small>
+	            <input type="text" class="form-control data" th:field="*{dataNascimento}" placeholder="Digite a data de nascimento" data-provide="datepicker" data-date-language="pt-BR"> 
+	            <small class="form-text text-muted"></small>
 	        </div>
 	        <div class="col-sm-4 form-group ms-required">
 	            <label class="control-label font-weight-bold" for="email">Email</label>
-	            <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Digite o email">
+	            <input type="email" class="form-control" th:field="*{email}" placeholder="Digite o email">
 	            <small class="form-text text-muted"></small>
 	        </div>
 	    </div>
 	
 	    <div class="row">
-	        <div class="col-sm-4 form-group ms-required">
+	        <div class="col-sm-4 form-group">
 	            <label class="control-label font-weight-bold" for="senha">Senha</label> 
-	            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Digite a senha">
-	            <small id="senha" class="form-text text-muted"></small>
+	            <input type="password" class="form-control" th:field="*{senha}" placeholder="Digite a senha">
+	            <small class="form-text text-muted"></small>
 	        </div>
-	        <div class="col-sm-4 form-group ms-required">
+	        <div class="col-sm-4 form-group">
 	            <label class="control-label font-weight-bold" for="senha">Confirmar Senha</label>
-	            <input type="password" class="form-control" id="confirm_password" aria-describedby="passwordHelp" placeholder="Digite a senha">
-	            <small id="senha" class="form-text text-muted"></small>
+	            <input type="password" class="form-control" th:field="*{confirmacaoSenha}" placeholder="Digite a senha">
+	            <small class="form-text text-muted"></small>
 	        </div>
 	        <div class="col-sm-4 form-group ms-required">
 	            <label class="control-label font-weight-bold" for="">Status</label><br> 

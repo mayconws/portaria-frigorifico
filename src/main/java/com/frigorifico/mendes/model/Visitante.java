@@ -23,12 +23,10 @@ public class Visitante implements Serializable {
 	private Long codigo;
 	
 	@NotBlank(message = "O nome é obrigatório")
-	private String nome;
+	private String nome;	
 	
-	@NotBlank(message = "O rg é obrigatório")
-	private String rg;
+	private String rg;	
 	
-	@NotBlank(message = "O cpf é obrigatório")
 	private String cpf;
 	
 	private String telefone;
