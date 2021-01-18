@@ -37,6 +37,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.frigorifico.mendes.controller.VeiculosController;
 import com.frigorifico.mendes.controller.converter.CidadeConverter;
 import com.frigorifico.mendes.controller.converter.EstadoConverter;
+import com.frigorifico.mendes.controller.converter.GrupoConverter;
 import com.frigorifico.mendes.controller.converter.ModeloConverter;
 import com.frigorifico.mendes.controller.converter.TransportadoraConverter;
 import com.frigorifico.mendes.thymeleaf.MendesDialect;
@@ -100,6 +101,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new CidadeConverter());
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new TransportadoraConverter());
+		conversionService.addConverter(new GrupoConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);

@@ -10,7 +10,7 @@
 	<title>Cadastro de Usuário</title>
 	
 	<!-- Switch Button -->
-	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap4-toggle.min.css}"/>	
 
 </head>
 
@@ -34,8 +34,8 @@
 	            <small class="form-text text-muted"></small>
 	        </div>
 	        <div class="col-sm-3 form-group ms-required">
-	            <label class="control-label font-weight-bold" for="dtNasc">Data de Nascimento</label>
-	            <input type="text" class="form-control data" th:field="*{dataNascimento}" placeholder="Digite a data de nascimento" data-provide="datepicker" data-date-language="pt-BR"> 
+	            <label class="control-label font-weight-bold" for="dataNascimento">Data de Nascimento</label>
+	            <input type="text" class="form-control js-date" th:field="*{dataNascimento}" placeholder="Digite a data de nascimento" autocomplete="off"/> 
 	            <small class="form-text text-muted"></small>
 	        </div>
 	        <div class="col-sm-4 form-group ms-required">
@@ -46,7 +46,7 @@
 	    </div>
 	
 	    <div class="row">
-	        <div class="col-sm-4 form-group">
+	        <div class="col-sm-4 form-group" th:classappend="${usuario.novo} ? ms-required">
 	            <label class="control-label font-weight-bold" for="senha">Senha</label> 
 	            <input type="password" class="form-control" th:field="*{senha}" placeholder="Digite a senha">
 	            <small class="form-text text-muted"></small>
@@ -58,24 +58,23 @@
 	        </div>
 	        <div class="col-sm-4 form-group ms-required">
 	            <label class="control-label font-weight-bold" for="">Status</label><br> 
-	            <input type="checkbox" checked data-toggle="toggle" data-on="Ativo" data-off="Inativo" data-onstyle="primary" data-offstyle="danger"data-height="25">
+	            <input type="checkbox" checked data-toggle="toggle" data-on="Ativo" th:field="*{ativo}" 
+	            	data-off="Inativo" data-onstyle="primary" data-offstyle="danger"data-height="25">
 	        </div>
 	    </div>
 	
 	     <div class="row">
 	        <div class="form-group col-sm-6 ms-required">
-	            <label class="control-label font-weight-bold">Grupos</label> 
-	            <div>
-	                  <div class="checkbox  checkbox-inline"> 
-	                    <input type="checkbox" />
-	                    <label>Administrador</label>
-	                </div>
-	                <div class="checkbox  checkbox-inline"> 
-	                    <input type="checkbox" />
-	                    <label>Vendedor</label>
-	                </div>
-	            </div>
-	        </div>
+	        	<label class="control-label font-weight-bold">Grupos</label> 
+		            <div>
+		            <th:block th:each="grupo : ${grupos}">
+	  					<div class="checkbox  checkbox-inline"> 
+		    				<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}"/>
+		    				<label class="form-check-label" th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
+	    				</div>
+	    			</th:block> 
+		    	</div>
+	    	</div>	    
 	    </div>
 	    
 	    <div class="form-group" align="center">
@@ -93,7 +92,8 @@
 
 <th:block layout:fragment="javascript-extra">
 	<!-- Switch Button -->
-	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap4-toggle.min.js}"></script>	
+	
 </th:block>
 
 </body>

@@ -8,6 +8,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.frigorifico.mendes.config.JPAConfig;
+import com.frigorifico.mendes.config.SecurityConfig;
 import com.frigorifico.mendes.config.ServiceConfig;
 import com.frigorifico.mendes.config.WebConfig;
 
@@ -15,7 +16,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JPAConfig.class, ServiceConfig.class };
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class, SecurityConfig.class };
 	}
 
 	@Override
