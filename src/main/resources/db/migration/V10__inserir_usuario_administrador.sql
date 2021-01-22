@@ -1,0 +1,1 @@
+INSERT INTO usuario (nome, email, senha, ativo) VALUES ('Maycon Willian', 'maycon@portaria.com.br', '$2a$10$YiNuMCgERjHNVJAS2ngt7.uKJE/PUd20y9qJyhOVhvcmu7saKbFCO', 1)
