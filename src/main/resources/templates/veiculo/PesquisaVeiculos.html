@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+	xmlns:mendes="http://mendes.frigorifico.com"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 	
@@ -52,7 +53,8 @@
 							    </button>
 							</a>
 							<a>
-							    <button type="button" class="btn btn-secondary btn-sm">
+							    <button type="button" class="btn btn-secondary btn-sm"
+							    	sec:authorize="hasRole('ROLE_ADMIN')">
 							        <i class="fas fa-trash"></i>
 							    </button>
 							</a>

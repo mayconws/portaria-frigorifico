@@ -12,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -25,6 +27,7 @@ import com.frigorifico.mendes.validation.AtributoConfirmacao;
 @AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
 @Entity
 @Table(name = "usuario")
+@DynamicUpdate
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,6 +59,11 @@ public class Usuario implements Serializable {
 	@NotNull(message = "A data de nascimento é obrigatório")
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
+	
+	@PreUpdate
+	private void preUpdate() {
+		this.confirmacaoSenha = senha;
+	}
 
 	public Long getCodigo() {
 		return codigo;

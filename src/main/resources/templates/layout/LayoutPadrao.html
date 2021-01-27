@@ -29,6 +29,9 @@
 
 </head>
 
+<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
+
 <body id="page-top">
 
   <!-- Page Wrapper -->

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:mendes="http://mendes.frigorifico.com">
 
 <head></head>
 
@@ -43,15 +45,15 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Opções:</h6>
-          <a class="collapse-item" href="buttons.html">Cidade</a>
-          <a class="collapse-item" href="cards.html">Motorista</a>
-          <a class="collapse-item" href="cards.html">Modelo do Veículo</a>
-          <a class="collapse-item" href="cards.html">Permissão</a>
-          <a class="collapse-item" href="cards.html">Setor da Empresa</a>
-          <a class="collapse-item" href="cards.html">Transportadora</a>
-          <a class="collapse-item" href="cards.html">Usuário</a>
-          <a class="collapse-item" href="cards.html">Veículo</a>
-           <a class="collapse-item" href="cards.html">Visitante</a>
+          <a class="collapse-item" th:href="@{/cidades/nova}">Cidade</a>
+          <a class="collapse-item" th:href="@{/motoristas/novo}">Motorista</a>
+          <a class="collapse-item" th:href="@{/modelos/novo}">Modelo do Veículo</a>
+          <a class="collapse-item" th:href="@{/permissoes/nova}">Permissão</a>
+          <a class="collapse-item" th:href="@{/setores/novo}">Setor da Empresa</a>
+          <a class="collapse-item" th:href="@{/transportadoras/nova}">Transportadora</a>
+          <a class="collapse-item" th:href="@{/usuarios/novo}">Usuário</a>
+          <a class="collapse-item" th:href="@{/veiculos/novo}">Veículo</a>
+          <a class="collapse-item" th:href="@{/visitantes/novo}">Visitante</a>
         </div>
       </div>
     </li>   

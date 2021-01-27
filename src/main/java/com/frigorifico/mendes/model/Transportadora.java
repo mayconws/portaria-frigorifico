@@ -31,61 +31,62 @@ import com.frigorifico.mendes.model.validation.group.CpfGroup;
 @Table(name = "transportadora")
 @GroupSequenceProvider(TransportadoraGroupSequenceProvider.class)
 public class Transportadora implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
-	
+
 	@NotNull(message = "O tipo de pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
-	
+
 	@NotBlank(message = "CPF/CNPJ é obrigatório")
 	@CPF(groups = CpfGroup.class)
 	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
 	private String cpfOuCnpj;
-	
+
 	@NotBlank(message = "O cep é obrigatório")
 	private String cep;
-	
+
 	@NotBlank(message = "O endereço é obrigatório")
 	private String endereco;
-	
+
 	@NotBlank(message = "O bairro é obrigatório")
 	private String bairro;
-	
+
 	@NotBlank(message = "O complemento é obrigatório")
 	private String complemento;
-	
+
 	@NotBlank(message = "O número é obrigatório")
 	private String numero;
-	
+
 	@NotBlank(message = "O telefone é obrigatório")
 	private String telefone;
-	
+
 	@NotBlank(message = "O email é obrigatório")
 	private String email;
-	
+
 	@NotNull(message = "A cidade é obrigatória")
 	@ManyToOne
 	@JoinColumn(name = "codigo_cidade")
 	private Cidade cidade;
-	
+
 	@Transient
 	private Estado estado;
-	
-	@PrePersist @PreUpdate
+
+	@PrePersist
+	@PreUpdate
 	private void prePersistPreUpdate() {
 		this.cpfOuCnpj = this.cpfOuCnpj.replaceAll("\\.|-|/", "");
 	}
-	
+
 	@PostLoad
 	private void postLoad() {
 		this.cpfOuCnpj = this.tipoPessoa.formatar(this.cpfOuCnpj);
@@ -185,7 +186,7 @@ public class Transportadora implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
-	}	
+	}
 
 	public Estado getEstado() {
 		return estado;
@@ -194,7 +195,7 @@ public class Transportadora implements Serializable {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-	
+
 	public String getCpfOuCnpjSemFormatacao() {
 		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
 	}
@@ -222,6 +223,6 @@ public class Transportadora implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 
 }

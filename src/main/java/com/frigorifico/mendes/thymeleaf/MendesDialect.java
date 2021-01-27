@@ -8,7 +8,10 @@ import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
 
 import com.frigorifico.mendes.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
+import com.frigorifico.mendes.thymeleaf.processor.MenuAttributeTagProcessor;
 import com.frigorifico.mendes.thymeleaf.processor.MessageElementTagProcessor;
+import com.frigorifico.mendes.thymeleaf.processor.OrderElementTagProcessor;
+import com.frigorifico.mendes.thymeleaf.processor.PaginationElementTagProcessor;
 
 public class MendesDialect extends AbstractProcessorDialect {
 	
@@ -21,6 +24,9 @@ public class MendesDialect extends AbstractProcessorDialect {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));
+		processadores.add(new MenuAttributeTagProcessor(dialectPrefix));
+		processadores.add(new OrderElementTagProcessor(dialectPrefix));
+		processadores.add(new PaginationElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 
