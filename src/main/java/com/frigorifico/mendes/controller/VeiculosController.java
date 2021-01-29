@@ -39,7 +39,8 @@ public class VeiculosController {
 	public ModelAndView novo(Veiculo veiculo) {
 		ModelAndView mv = new ModelAndView("veiculo/CadastroVeiculo");
 		mv.addObject("modelos", modelos.findAll());
-		mv.addObject("transportadoras", transportadoras.findAll());	
+		mv.addObject("transportadoras", transportadoras.findAll());
+		mv.addObject("conteudo", veiculos.findAll());
 		return mv;
 	}
 

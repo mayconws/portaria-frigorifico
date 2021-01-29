@@ -22,7 +22,7 @@
 	         
 	          <!-- DataTales Example -->
 	          <div class="card shadow mb-4">
-	            <div class="card-header py-3">
+	          	<div class="card-header py-3">
 	              <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
 	            </div>
 	            <div class="card-body">
@@ -41,14 +41,14 @@
 	                    </tr>
 	                  </thead>                
 	                  <tbody>
-	                    <tr th:each="transportadora : ${transportadoras}">	                     
+	                    <tr th:each="transportadora : ${pagina.conteudo}">	                     
 	                      <td class="text-center" th:text="${transportadora.nome}"></td>
 	                      <td class="text-center" th:text="${transportadora.tipoPessoa.descricao}"></td>
 	                      <td class="text-center" th:text="${transportadora.cpfOuCnpj}"></td>
-	                      <td class="text-center" th:text="${transportadora.endereco}"></td>
+	                      <td class="text-center" th:text="${transportadora.endereco.logradouro}"></td>
 	                      <td class="text-center" th:text="${transportadora.telefone}"></td>
 	                      <td class="text-center" th:text="${transportadora.email}"></td>
-	                      <td class="text-center" th:text="${transportadora.cidade.nome}"></td>	                                                           
+	                      <td class="text-center" th:text="${transportadora.endereco.nomeCidadeSiglaEstado}"></td>	                                                           
 	                      <td class="text-center">
 	                      	<a>
 							    <button type="button" class="btn btn-primary btn-sm">

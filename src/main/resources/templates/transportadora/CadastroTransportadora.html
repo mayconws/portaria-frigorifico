@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"	
+<html lang="pt-br" 
+	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:data="http://www.thymeleaf.org/extras/data"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+    xmlns:data="http://www.thymeleaf.org/extras/data" 
+    layout:decorate="layout/LayoutPadrao"
+    xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
-	
-	<title>Cadastro de Transportadora</title>
-	
+
+    <title>Cadastro de Transportadora</title>
+    
+    <link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -22,8 +24,8 @@
         <br>
 
         <form th:object="${transportadora}" th:action="@{/transportadoras/nova}" method="post">
-        
-        	<mendes:message/>
+
+            <mendes:message />
 
             <div class="row">
                 <div class="col-sm-12 form-group ms-required">
@@ -39,40 +41,40 @@
                         pessoa</label>
                     <div>
                         <th:block th:each="tipoPessoa : ${tiposPessoa}">
-							<div class="radio  radio-inline">
-								<input type="radio" name="tipo-pessoa" th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" 
-									th:field="*{tipoPessoa}" th:value="${tipoPessoa}" 
-									th:data-documento="${tipoPessoa.documento}" th:data-mascara="${tipoPessoa.mascara}"> 
-								<label class="control-label" th:for="|id_${tipoPessoa}|" 
-									th:text="${tipoPessoa.descricao}">Física</label>
-							</div>
-						</th:block>
+                            <div class="radio  radio-inline">
+                                <input type="radio" name="tipo-pessoa" th:id="|id_${tipoPessoa}|"
+                                    class="js-radio-tipo-pessoa" th:field="*{tipoPessoa}" th:value="${tipoPessoa}"
+                                    th:data-documento="${tipoPessoa.documento}" th:data-mascara="${tipoPessoa.mascara}">
+                                <label class="control-label" th:for="|id_${tipoPessoa}|"
+                                    th:text="${tipoPessoa.descricao}">Física</label>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
 
                 <div class="col-sm-8 form-group ms-required">
                     <label class="control-label font-weight-bold" for="cpfOuCnpj">CPF/CNPJ</label>
-                    <input type="text" class="form-control" th:field="*{cpfOuCnpj}" id="cpfOuCnpj"/>
+                    <input type="text" class="form-control" th:field="*{cpfOuCnpj}" id="cpfOuCnpj" />
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-2 form-group ms-required">
                     <label class="control-label font-weight-bold" for="cep">CEP</label>
-                    <input type="text" class="form-control cep" name="cep" th:field="*{cep}"
-                        aria-describedby="cep" placeholder="Digite o cep"> 
-                        <small class="form-text text-muted"></small>
+                    <input type="text" class="form-control cep" th:field="*{endereco.cep}" aria-describedby="cep"
+                        placeholder="Digite o cep">
+                    <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-5 form-group ms-required">
-                    <label class="control-label font-weight-bold" for="endereco">Endereço</label>
-                    <input type="text" class="form-control" name="rua" th:field="*{endereco}"
-                        aria-describedby="email" placeholder="Digite o endereço">
+                    <label class="control-label font-weight-bold" for="logradouro">Endereço</label>
+                    <input type="text" class="form-control" th:field="*{endereco.logradouro}" aria-describedby="email"
+                        placeholder="Digite o endereço">
                     <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-5 form-group ms-required">
                     <label class="control-label font-weight-bold" for="bairro">Bairro</label>
-                    <input type="text" class="form-control" name="bairro" th:field="*{bairro}"
-                        aria-describedby="bairro" placeholder="Digite o bairro">
+                    <input type="text" class="form-control" th:field="*{endereco.bairro}" aria-describedby="bairro"
+                        placeholder="Digite o bairro">
                     <small class="form-text text-muted"></small>
                 </div>
             </div>
@@ -80,17 +82,19 @@
             <div class="row">
                 <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="complemento">Complemento</label>
-                    <input type="text" class="form-control" th:field="*{complemento}" placeholder="Digite o complemento"> 
-                        <small class="form-text text-muted"></small>
+                    <input type="text" class="form-control" th:field="*{endereco.complemento}"
+                        placeholder="Digite o complemento">
+                    <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="numero">Número</label>
-                    <input type="text" class="form-control" th:field="*{numero}" placeholder="Digite o número">
+                    <input type="text" class="form-control" th:field="*{endereco.numero}" placeholder="Digite o número">
                     <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="telefone">Telefone</label>
-                    <input type="text" class="form-control telefone" th:field="*{telefone}" placeholder="Digite o telefone"> 
+                    <input type="text" class="form-control telefone" th:field="*{telefone}"
+                        placeholder="Digite o telefone">
                     <small class="form-text text-muted"></small>
                 </div>
             </div>
@@ -98,27 +102,28 @@
             <div class="row">
                 <div class="col-sm-4 form-group ms-required">
                     <label for="email" class="control-label font-weight-bold">E-mail</label>
-                    <input type="text" class="form-control" th:field="*{email}" /> 
+                    <input type="text" class="form-control" th:field="*{email}" />
                     <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-4 form-group ms-required">
-                   <label class="control-label font-weight-bold" for="estado">Estado</label>
-					<select th:field="*{estado}" id="estado" class="form-control">
-	                    <option value="">Selecione o estado</option>
-	                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option>
-	                </select>
+                    <label class="control-label font-weight-bold" for="estado">Estado</label>
+                    <select th:field="*{endereco.estado}" id="estado" class="form-control">
+                        <option value="">Selecione o estado</option>
+                        <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option>
+                    </select>
                 </div>
                 <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="cidade">Cidade</label>
-					<div class="ms-field-action">
-						<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidade} != null ? *{cidade.codigo}"/>
-						<select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{cidade}">
-						</select>
-						
-						<div class="ms-field-action-icon js-img-loading" style="display: none">
-							<img th:src="@{/images/mini-loading.gif}"/>
-						</div>
-					</div>
+                    <div class="ms-field-action">
+                        <input type="hidden" id="inputHiddenCidadeSelecionada"
+                            th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}" />
+                        <select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{endereco.cidade}">
+                        </select>
+
+                        <div class="ms-field-action-icon js-img-loading" style="display: none">
+                            <img th:src="@{/images/mini-loading.gif}" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -133,12 +138,65 @@
 
         </form>
 
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nome</th>
+                                <th class="text-center">Tipo Pessoa</th>
+                                <th class="text-center">CPF/CNPJ</th>
+                                <th class="text-center">Endereço</th>
+                                <th class="text-center">Telefone</th>
+                                <th class="text-center">E-mail</th>
+                                <th class="text-center">Cidade</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="transportadora : ${conteudo}">
+                                <td class="text-center" th:text="${transportadora.nome}"></td>
+                                <td class="text-center" th:text="${transportadora.tipoPessoa.descricao}"></td>
+                                <td class="text-center" th:text="${transportadora.cpfOuCnpj}"></td>
+                                <td class="text-center" th:text="${transportadora.endereco.logradouro}"></td>
+                                <td class="text-center" th:text="${transportadora.telefone}"></td>
+                                <td class="text-center" th:text="${transportadora.email}"></td>
+                                <td class="text-center" th:text="${transportadora.endereco.nomeCidadeSiglaEstado}"></td>
+                                <td class="text-center">
+                                    <a>
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a>
+                                        <button type="button" class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
     </div>
-    
+
     <th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/transportadora.mascara-cpf-cnpj.js}"></script>
-		<script th:src="@{/javascripts/transportadora.combo-estado-cidade.js}"></script>
-	</th:block>
+        <script th:src="@{/javascripts/transportadora.mascara-cpf-cnpj.js}"></script>
+        <script th:src="@{/javascripts/transportadora.combo-estado-cidade.js}"></script>
+        <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+  		<script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+  		<script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
+    </th:block>
 
 </body>
 

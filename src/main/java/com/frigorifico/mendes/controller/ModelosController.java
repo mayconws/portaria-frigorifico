@@ -34,6 +34,7 @@ public class ModelosController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(Modelo modelo) {
 		ModelAndView mv = new ModelAndView("modelo/CadastroModelo");
+		mv.addObject("conteudo", modelos.findAll());
 		return mv;
 	}
 

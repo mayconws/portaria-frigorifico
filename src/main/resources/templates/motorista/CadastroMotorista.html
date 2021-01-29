@@ -1,79 +1,138 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="pt-br" 
+	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
-	
-	<title>Cadastro de Motorista</title>
-	
+
+    <title>Cadastro de Motorista</title>
+    
+    <link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
 </head>
 
 <body>
 
-	<div layout:fragment="conteudo">
-	
-		<div class="offset-sm-4 d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Cadastro de Motorista</h1>				
-		</div>
-		<br>	
-			
-		<form action="" th:object="${motorista}" th:action="@{/motoristas/novo}" method="post">
-		
-			<mendes:message/>
-		
-			<div class="row">
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="nome">Nome</label>
-			        <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="telefone">Telefone</label>
-			        <input type="text" class="form-control telefone" th:field="*{telefone}" placeholder="Digite o telefone">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="rg">RG</label> 
-			        <input type="text" class="form-control" th:field="*{rg}" placeholder="Digite o rg">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			</div>
+    <div layout:fragment="conteudo">
 
-			<div class="row">			    
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="orgao">Orgão Expedidor</label> 
-			        <input type="text" class="form-control" th:field="*{orgaoExpedidor}" placeholder="Orgão expedidor">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="cpf">CPF</label>
-			        <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o cpf" data-mask="000.000.000-00">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-4 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
-			        <select class="form-control" th:field="*{transportadora}">
-						<option value="">Selecione uma Transportadora</option>
-						<option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}" th:text="${transportadora.nome}"></option>				
-					</select>
-			    </div>
-			</div>		
-			
-			<div class="form-group" align="center">
-				<button type="submit" class="btn btn-primary btn-sm">
-					<i class="fas fa-check"></i> Salvar
-				</button>
-				<button type="submit" class="btn btn-secondary btn-sm">
-					<i class="fas fa-undo-alt"></i> Voltar
-				</button>			
-			</div>   	
-			
-		</form>
-		
-	</div> 
+        <div class="offset-sm-4 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Motorista</h1>
+        </div>
+        <br>
+
+        <form action="" th:object="${motorista}" th:action="@{/motoristas/novo}" method="post">
+
+            <mendes:message />
+
+            <div class="row">
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="nome">Nome</label>
+                    <input type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="telefone">Telefone</label>
+                    <input type="text" class="form-control telefone" th:field="*{telefone}"
+                        placeholder="Digite o telefone">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="rg">RG</label>
+                    <input type="text" class="form-control" th:field="*{rg}" placeholder="Digite o rg">
+                    <small class="form-text text-muted"></small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="orgao">Orgão Expedidor</label>
+                    <input type="text" class="form-control" th:field="*{orgaoExpedidor}" placeholder="Orgão expedidor">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="cpf">CPF</label>
+                    <input type="text" class="form-control" th:field="*{cpf}" placeholder="Digite o cpf"
+                        data-mask="000.000.000-00">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
+                    <select class="form-control" th:field="*{transportadora}">
+                        <option value="">Selecione uma Transportadora</option>
+                        <option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}"
+                            th:text="${transportadora.nome}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-undo-alt"></i> Voltar
+                </button>
+            </div>
+
+        </form>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nome</th>
+                                <th class="text-center">RG</th>
+                                <th class="text-center">CPF</th>
+                                <th class="text-center">Telefone</th>
+                                <th class="text-center">Transportadora</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="motorista : ${conteudo}">
+                                <td class="text-center" th:text="${motorista.nome}"></td>
+                                <td class="text-center" th:text="${motorista.rg}"></td>
+                                <td class="text-center" th:text="${motorista.cpf}"></td>
+                                <td class="text-center" th:text="${motorista.telefone}"></td>
+                                <td class="text-center" th:text="${motorista.transportadora.nome}"></td>
+                                <td class="text-center">
+                                    <a>
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a>
+                                        <button type="button" class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+
+<th:block layout:fragment="javascript-extra">
+
+  <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+  <script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
+  	
+</th:block>
 
 </body>
 

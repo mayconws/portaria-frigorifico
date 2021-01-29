@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "grupo")
 public class Grupo implements Serializable {
@@ -21,7 +23,8 @@ public class Grupo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
+	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 
 	@ManyToMany

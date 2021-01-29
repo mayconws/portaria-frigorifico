@@ -3,19 +3,17 @@ package com.frigorifico.mendes.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,36 +48,16 @@ public class Transportadora implements Serializable {
 	@CPF(groups = CpfGroup.class)
 	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
-	private String cpfOuCnpj;
-
-	@NotBlank(message = "O cep é obrigatório")
-	private String cep;
-
-	@NotBlank(message = "O endereço é obrigatório")
-	private String endereco;
-
-	@NotBlank(message = "O bairro é obrigatório")
-	private String bairro;
-
-	@NotBlank(message = "O complemento é obrigatório")
-	private String complemento;
-
-	@NotBlank(message = "O número é obrigatório")
-	private String numero;
+	private String cpfOuCnpj;	
 
 	@NotBlank(message = "O telefone é obrigatório")
 	private String telefone;
 
 	@NotBlank(message = "O email é obrigatório")
 	private String email;
-
-	@NotNull(message = "A cidade é obrigatória")
-	@ManyToOne
-	@JoinColumn(name = "codigo_cidade")
-	private Cidade cidade;
-
-	@Transient
-	private Estado estado;
+	
+	@Embedded
+	private Endereco endereco;
 
 	@PrePersist
 	@PreUpdate
@@ -122,47 +100,7 @@ public class Transportadora implements Serializable {
 
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+	}	
 
 	public String getTelefone() {
 		return telefone;
@@ -178,22 +116,14 @@ public class Transportadora implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}	
+
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public String getCpfOuCnpjSemFormatacao() {

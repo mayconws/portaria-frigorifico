@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.frigorifico.mendes.model.Grupo;
+import com.frigorifico.mendes.model.Permissao;
 
 @Repository
-public interface Grupos extends JpaRepository<Grupo, Long> {
+public interface Permissoes extends JpaRepository<Permissao, Long> {
 	
-	public Optional<Grupo> findByNomeIgnoreCase(String nome);
+	public Optional<Permissao> findByNomeIgnoreCase(String nome);
 
 }

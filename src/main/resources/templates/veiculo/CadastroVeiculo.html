@@ -1,98 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+<html lang="pt-br" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com">
 
 <head>
-	
-	<title>Cadastro de Veículo</title>
-	
-	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
-	
+
+    <title>Cadastro de Veículo</title>
+
+    <link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
+    <link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
 </head>
 
 <body>
 
-	<div layout:fragment="conteudo">
-	
-		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Cadastro de Veículo</h1>				
-		</div>
-		<br>
-			
-		<form th:object="${veiculo}" th:action="@{/veiculos/novo}" method="post">
-			
-			<mendes:message/>
-				
-			<div class="row">
-				<div class="col-sm-4 form-group ms-required" mendes:classforerror="placa">
-					<label class="control-label font-weight-bold" for="placa">Placa</label>
-					<input type="text" class="control-label form-control placa" id="placa" th:field="*{placa}">
-					<small class="form-text text-muted"></small>
-				</div>
-				<div class="col-sm-4 form-group ms-required" mendes:classforerror="modelo">
-					<label class="control-label font-weight-bold" for="modelo">Modelo do Veículo</label>
-					
-					<div class="ms-field-action"> 
-						<select id="modelo" class="form-control" th:field="*{modelo}">
-							<option th:each="modelo : ${modelos}" th:value="${modelo.codigo}" th:text="${modelo.nome}">Selecione um Modelo</option>				
-						</select>
-						
-						<div class="ms-field-action-icon">
-							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoModelo">
-								<i class="fa fa-plus-square ms-icon-large" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>							
-				</div>
-				<div class="col-sm-4 form-group ms-required">
-					<label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
-					<select class="form-control" th:field="*{transportadora}">
-						<option value="">Selecione uma Transportadora</option>
-						<option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}" th:text="${transportadora.nome}"></option>				
-					</select>
-				</div>           
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-12 form-group port-required">
-				<label class="control-label font-weight-bold">Foto</label>
-					
-					<div class="js-container-foto-veiculo" th:attr="data-url-fotos=@{/fotos}">	
-						<div id="upload-drop" class="ms-upload">
-							<i class="fa fa-upload"></i>
-							<span>Arraste a foto aqui ou </span>
-							<a class="ms-upload-form-file" id="ms-upload-color">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
-						</div>
-					</div>			
-				</div>			
-			</div>
-					
-			<div class="form-group" align="center">
-				<button type="submit" class="btn btn-primary btn-sm">
-					<i class="fas fa-check"></i> Salvar
-				</button>
-				<button type="submit" class="btn btn-secondary btn-sm">
-					<i class="fas fa-undo-alt"></i> Voltar
-				</button>			
-			</div>   	
-			
-		</form>
-		
-	<div th:replace="modelo/CadastroRapidoModelo :: modal"></div>
-	<th:block th:replace="hbs/FotoVeiculo"></th:block>
-	
-	</div>
+    <div layout:fragment="conteudo">
 
-<th:block layout:fragment="javascript-extra">
-	<script th:src="@{/javascripts/modelo.cadastro-rapido.js}"></script>
-	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
-	<script th:src="@{/javascripts/veiculo.upload-foto.js}"></script>		
-</th:block>
+        <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Veículo</h1>
+        </div>
+        <br>
+
+        <form th:object="${veiculo}" th:action="@{/veiculos/novo}" method="post">
+
+            <mendes:message />
+
+            <div class="row">
+                <div class="col-sm-4 form-group ms-required" mendes:classforerror="placa">
+                    <label class="control-label font-weight-bold" for="placa">Placa</label>
+                    <input type="text" class="control-label form-control placa" id="placa" th:field="*{placa}">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-4 form-group ms-required" mendes:classforerror="modelo">
+                    <label class="control-label font-weight-bold" for="modelo">Modelo do Veículo</label>
+
+                    <div class="ms-field-action">
+                        <select id="modelo" class="form-control" th:field="*{modelo}">
+                            <option th:each="modelo : ${modelos}" th:value="${modelo.codigo}" th:text="${modelo.nome}">
+                                Selecione um Modelo</option>
+                        </select>
+
+                        <div class="ms-field-action-icon">
+                            <a href="#" data-toggle="modal" data-target="#modalCadastroRapidoModelo">
+                                <i class="fa fa-plus-square ms-icon-large" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="transportadora">Transportadora</label>
+                    <select class="form-control" th:field="*{transportadora}">
+                        <option value="">Selecione uma Transportadora</option>
+                        <option th:each="transportadora : ${transportadoras}" th:value="${transportadora.codigo}"
+                            th:text="${transportadora.nome}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group port-required">
+                    <label class="control-label font-weight-bold">Foto</label>
+
+                    <div class="js-container-foto-veiculo" th:attr="data-url-fotos=@{/fotos}">
+                        <div id="upload-drop" class="ms-upload">
+                            <i class="fa fa-upload"></i>
+                            <span>Arraste a foto aqui ou </span>
+                            <a class="ms-upload-form-file" id="ms-upload-color">selecione <input id="upload-select"
+                                    type="file" accept=".jpg,.jpeg,.png" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-check"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-undo-alt"></i> Voltar
+                </button>
+            </div>
+
+        </form>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Foto</th>
+                                <th class="text-center">Placa</th>
+                                <th class="text-center">Modelo do Veículo</th>
+                                <th class="text-center">Transportadora</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="veiculo : ${conteudo}">
+                                <td class="text-center table-veiculos-col-foto">
+                                    <img th:src="@{/fotos/thumbnail.{foto}(foto=${veiculo.fotoOuMock})}"
+                                        class="img-thumbnail" />
+                                </td>
+                                <td class="text-center" th:text="${veiculo.placa}"></td>
+                                <td class="text-center" th:text="${veiculo.modelo.nome}"></td>
+                                <td class="text-center" th:text="${veiculo.transportadora.nome}"></td>
+                                <td class="text-center">
+                                    <a>
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <div th:replace="modelo/CadastroRapidoModelo :: modal"></div>
+        <th:block th:replace="hbs/FotoVeiculo"></th:block>
+
+    </div>
+
+    <th:block layout:fragment="javascript-extra">
+        <script th:src="@{/javascripts/modelo.cadastro-rapido.js}"></script>
+        <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+        <script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+        <script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+        <script th:src="@{/javascripts/veiculo.upload-foto.js}"></script>
+        <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+        <script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
+    </th:block>
 
 </body>
 

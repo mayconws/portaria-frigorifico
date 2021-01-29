@@ -65,7 +65,7 @@
 			<div class="row">
 			    <div class="col-sm-3 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="data">Data da Entrada</label>
-			        <input type="text" class="form-control" id="data" aria-describedby="data" placeholder="Informe a data de entrada" data-provide="datepicker" data-date-language="pt-BR">
+			        <input type="text" class="form-control js-date" placeholder="Informe a data de entrada">
 			        <small class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-3 form-group ms-required">
@@ -75,9 +75,8 @@
 			    </div>
 			    <div class="col-sm-3 form-group ms-required">
 			        <label id="motorista" class="control-label font-weight-bold">Visitante</label>
-			        <select class="form-control">
-			            <option value="0">Selecione um Visitante</option>
-			        </select>
+			        <input type="text" class="form-control" id="visitante" 
+						placeholder="Pesquise o visitante pelo nome" autofocus="autofocus" />
 			    </div>
 			    <div class="col-sm-3 form-group ms-required">
 			        <label id="motorista" class="control-label font-weight-bold">Setor da Empresa</label>
@@ -94,7 +93,7 @@
 			    </div>
 			    <div class="col-sm-3 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
-			        <input type="text" class="form-control" id="data" aria-describedby="data" placeholder="Informe a data de saída" data-provide="datepicker" data-date-language="pt-BR"> 
+			        <input type="text" class="form-control js-date" placeholder="Informe a data de saída"> 
 			            <small class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-3 form-group ms-required">

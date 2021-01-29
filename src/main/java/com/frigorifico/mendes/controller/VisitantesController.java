@@ -29,7 +29,8 @@ public class VisitantesController {
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Visitante visitante) {
-		ModelAndView mv = new ModelAndView("visitante/CadastroVisitante");		
+		ModelAndView mv = new ModelAndView("visitante/CadastroVisitante");	
+		mv.addObject("conteudo", visitantes.findAll());
 		return mv;
 	}
 

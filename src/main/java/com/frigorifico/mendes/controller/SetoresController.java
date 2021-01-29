@@ -30,6 +30,7 @@ public class SetoresController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(Setor setor) {
 		ModelAndView mv = new ModelAndView("setor/CadastroSetor");
+		mv.addObject("conteudo", setores.findAll());	
 		return mv;
 	}
 	

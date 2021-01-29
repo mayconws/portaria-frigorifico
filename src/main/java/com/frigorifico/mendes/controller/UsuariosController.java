@@ -42,26 +42,28 @@ public class UsuariosController {
 	private Usuarios usuarios;
 
 	@RequestMapping("/novo")
-	public ModelAndView novo(Usuario usuario) {
+	public ModelAndView novo(Usuario usuario, UsuarioFilter usuarioFilter, Pageable pageable) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
-		mv.addObject("grupos", grupos.findAll());
+		mv.addObject("grupos", grupos.findAll());		
+		mv.addObject("conteudo", usuarios.filtrar(usuarioFilter, pageable));
 		return mv;
 	}
 
 	@PostMapping("/novo")
-	public ModelAndView salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes, Pageable pageable,
+			UsuarioFilter usuarioFilter) {
 		if (result.hasErrors()) {
-			return novo(usuario);
+			return novo(usuario, usuarioFilter, pageable);
 		}
 
 		try {
 			cadastroUsuarioService.salvar(usuario);
 		} catch (EmailUsuarioJaCadastradoException e) {
 			result.rejectValue("email", e.getMessage(), e.getMessage());
-			return novo(usuario);
+			return novo(usuario, usuarioFilter, pageable);
 		} catch (SenhaObrigatoriaUsuarioException e) {
 			result.rejectValue("senha", e.getMessage(), e.getMessage());
-			return novo(usuario);
+			return novo(usuario,usuarioFilter, pageable);
 		}
 
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");

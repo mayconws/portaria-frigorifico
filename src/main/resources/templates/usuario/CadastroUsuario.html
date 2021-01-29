@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
+	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 	
 	<title>Cadastro de Usuário</title>
 	
 	<!-- Switch Button -->
-	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap4-toggle.min.css}"/>	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap4-toggle.min.css}"/>
+	<link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">	
 
 </head>
 
@@ -87,12 +90,94 @@
 	    </div>   	
 	    
 	</form>
+
+        <div class="mb-2">
+            <button type="button" class="badge badge-secondary js-status-btn" data:status="ATIVAR" data:url="@{/usuarios/status}">
+                <span>Ativar</span>
+            </button>
+
+            <button type="button" class="badge badge-secondary btn-sm js-status-btn" data:status="DESATIVAR"
+                data:url="@{/usuarios/status}">
+                <span>Desativar</span>
+            </button>
+        </div>
+	
+	 <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    <div class="checkbox">
+                                        <input type="checkbox" class="js-selecao-todos">
+                                        <label></label>
+                                    </div>
+                                </th>
+                                <th class="text-center">Nome</th>
+                                <th class="text-center">E-mail</th>
+                                <th class="text-center">Grupo</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="usuario : ${conteudo}">
+                                <td class="text-center">
+                                    <div class="checkbox"
+                                        th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+                                        <input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td class="text-center" th:text="${usuario.nome}"></td>
+                                <td class="text-center" th:text="${usuario.email}"></td>
+                                <td class="text-center">
+                                    <span th:each="grupo : ${usuario.grupos}"
+                                        th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+                                </td>
+                                <td class="text-center">
+                                    <th:block th:if="${usuario.ativo}">
+                                        <span class="badge badge-success">Ativo</span>
+                                    </th:block>
+                                    <th:block th:if="${not usuario.ativo}">
+                                        <span class="badge badge-danger">Inativo</span>
+                                    </th:block>
+                                </td>
+                                <td class="text-center">
+                                    <a>
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a>
+                                        <button type="button" class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->	
 	
 	</div>
 
 <th:block layout:fragment="javascript-extra">
 	<!-- Switch Button -->
-	<script th:src="@{/javascripts/vendors/bootstrap4-toggle.min.js}"></script>	
+	<script th:src="@{/javascripts/vendors/bootstrap4-toggle.min.js}"></script>
+	<script th:src="@{/javascripts/multiselecao.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
 	
 </th:block>
 

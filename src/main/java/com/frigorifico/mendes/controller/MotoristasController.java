@@ -34,7 +34,8 @@ public class MotoristasController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(Motorista motorista) {
 		ModelAndView mv = new ModelAndView("motorista/CadastroMotorista");
-		mv.addObject("transportadoras", transportadoras.findAll());
+		mv.addObject("transportadoras", transportadoras.findAll());	
+		mv.addObject("conteudo", motoristas.findAll());
 		return mv;
 	}
 	

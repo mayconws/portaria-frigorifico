@@ -83,7 +83,7 @@
 			<div class="row">
 			    <div class="col-sm-2 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="data">Data da Chegada</label>
-			        <input type="text" class="form-control data" id="data" aria-describedby="data" data-provide="datepicker" data-date-language="pt-BR"> 
+			        <input type="text" class="form-control js-date"> 
 			            <small id="data" class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-2 form-group ms-required">
@@ -93,15 +93,23 @@
 			    </div>
 			    <div class="col-sm-4 form-group ms-required">
 			        <label id="veiculo" class="control-label font-weight-bold">Veículo</label>
-			        <select class="form-control">
-			            <option value="0">Selecione um Veículo</option>
-			        </select>
-			    </div>
+			        <div class="input-group">
+			         <input id="nomeVeiculo" type="text" readonly="readonly" class="form-control" placeholder="Clique na lupa para pesquisar o veículo"/>
+			          <span class="input-group-btn">
+				        <button class="btn btn-default  js-tooltip" type="button" title="Pesquisa avançada"
+				        		data-toggle="modal" data-target="#pesquisaRapidaVeiculos" >
+				        	<i class="fa fa-search" aria-hidden="true"></i>
+				        </button>
+				      </span>
+			    	</div>
+			    
+			     	<th:block th:replace="veiculo/PesquisaRapidaVeiculos :: pesquisaRapidaVeiculos"></th:block>
+				</div>
+				
 			    <div class="col-sm-4 form-group ms-required">
 			        <label id="motorista" class="control-label font-weight-bold">Motorista</label>
-			        <select class="form-control">
-			            <option value="0">Selecione um Motorista</option>
-			        </select>
+			        <input type="text" class="form-control" id="visitante" 
+						placeholder="Pesquise o motorista pelo nome" autofocus="autofocus" />
 			    </div>
 			</div>
 			
@@ -122,7 +130,7 @@
 			<div class="row">
 			    <div class="col-sm-2 form-group ms-required">
 			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
-			        <input type="text" class="form-control data"  id="data" aria-describedby="data" data-provide="datepicker" data-date-language="pt-BR">
+			        <input type="text" class="form-control js-date">
 			            <small id="data" class="form-text text-muted"></small>
 			    </div>
 			    <div class="col-sm-2 form-group ms-required">

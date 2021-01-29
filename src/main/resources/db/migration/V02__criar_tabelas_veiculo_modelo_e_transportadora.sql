@@ -9,7 +9,7 @@ CREATE TABLE transportadora (
     tipo_pessoa VARCHAR(15) NOT NULL,
     cpf_cnpj VARCHAR(30),
     cep VARCHAR(15),    
-    endereco VARCHAR(200),
+    logradouro VARCHAR(200),
     bairro VARCHAR(150),
     complemento VARCHAR(20),
     numero VARCHAR(15),
