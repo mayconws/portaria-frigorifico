@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "motorista")
 public class Motorista implements Serializable {
@@ -38,6 +40,7 @@ public class Motorista implements Serializable {
 	@Column(name = "orgao_expedidor")
 	private String orgaoExpedidor;
 	
+	@JsonIgnore
 	@NotNull(message = "A transportadora é obrigatória")
 	@ManyToOne
 	@JoinColumn(name = "codigo_transportadora")
@@ -97,6 +100,10 @@ public class Motorista implements Serializable {
 
 	public void setTransportadora(Transportadora transportadora) {
 		this.transportadora = transportadora;
+	}
+	
+	public boolean isNovo() {
+		return codigo == null;
 	}
 
 	@Override

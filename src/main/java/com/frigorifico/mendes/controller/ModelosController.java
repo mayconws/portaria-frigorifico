@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,8 +40,7 @@ public class ModelosController {
 	}
 
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Modelo modelo, BindingResult result, Model model,
-			RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Modelo modelo, BindingResult result, Model model, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			return novo(modelo);
@@ -73,6 +73,21 @@ public class ModelosController {
 		ModelAndView mv = new ModelAndView("modelo/PesquisaModelos");		
 		mv.addObject("modelos", modelos.findAll());
 		return mv;
+	}
+	
+	@GetMapping("/novo/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Modelo modelo) {
+		ModelAndView mv = novo(modelo);
+		mv.addObject(modelo);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroModeloService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Modelo excluído com sucesso!");
+		return "redirect:/grupos/novo";
 	}
 
 }

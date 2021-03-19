@@ -1,121 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-br" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:mendes="http://mendes.frigorifico.com">
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:mendes="http://mendes.frigorifico.com">
 
 <head></head>
 
 <body>
 
- <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" th:fragment="layout-sidebar">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        th:fragment="layout-sidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-eye"></i>
-      </div>
-      <div class="sidebar-brand-text mx-3">Portaria <sup></sup></div>
-    </a>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-eye"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Portaria <sup></sup></div>
+        </a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-      <a class="nav-link" href="index.html">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Cadastro
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-newspaper"></i>
-        <span>Cadastrar</span>
-      </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Opções:</h6>          
-          <a class="collapse-item" th:href="@{/grupos/novo}">Grupo</a>
-          <a class="collapse-item" th:href="@{/motoristas/novo}">Motorista</a>
-          <a class="collapse-item" th:href="@{/modelos/novo}">Modelo do Veículo</a>
-          <a class="collapse-item" th:href="@{/permissoes/nova}">Permissão</a>
-          <a class="collapse-item" th:href="@{/setores/novo}">Setor da Empresa</a>
-          <a class="collapse-item" th:href="@{/transportadoras/nova}">Transportadora</a>
-          <a class="collapse-item" th:href="@{/usuarios/novo}">Usuário</a>
-          <a class="collapse-item" th:href="@{/veiculos/novo}">Veículo</a>
-          <a class="collapse-item" th:href="@{/visitantes/novo}">Visitante</a>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Cadastro
         </div>
-      </div>
-    </li>   
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-newspaper"></i>
+                <span>Cadastrar</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Opções:</h6>
+                    <a class="collapse-item" th:href="@{/grupos/novo}">Grupo</a>
+                    <a class="collapse-item" th:href="@{/motoristas/novo}">Motorista</a>
+                    <a class="collapse-item" th:href="@{/modelos/novo}">Modelo do Veículo</a>
+                    <a class="collapse-item" th:href="@{/permissoes/nova}">Permissão</a>
+                    <a class="collapse-item" th:href="@{/setores/novo}">Setor da Empresa</a>
+                    <a class="collapse-item" th:href="@{/transportadoras/nova}">Transportadora</a>
+                    <a class="collapse-item" th:href="@{/usuarios/novo}">Usuário</a>
+                    <a class="collapse-item" th:href="@{/veiculos/novo}">Veículo</a>
+                    <a class="collapse-item" th:href="@{/visitantes/novo}">Visitante</a>                   
+                </div>
+            </div>
+        </li>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-      Controle de Veículos
-    </div>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-truck-moving"></i>
-        <span>Verificar Situação</span>
-      </a>     
-    </li>    
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Controle de Veículos
+        </div>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-    
-     <!-- Heading -->
-    <div class="sidebar-heading">
-      Controle de Visitantes
-    </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/controle/veiculos/novo}">
+                <i class="fas fa-truck-moving"></i>
+                <span>Verificar Situação</span>
+            </a>
+        </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-users"></i>
-        <span>Verificar Situação</span>
-      </a>     
-    </li>
-    
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-    
-     <!-- Heading -->
-    <div class="sidebar-heading">
-      Relatórios
-    </div>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-folder-open"></i>
-        <span>Movimentação</span>
-      </a>     
-    </li>
-    
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Controle de Visitantes
+        </div>
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/controle/visitantes/novo}">
+                <i class="fas fa-users"></i>
+                <span>Verificar Situação</span>
+            </a>
+        </li>
 
-  </ul>
-  <!-- End of Sidebar -->
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Relatórios
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-folder-open"></i>
+                <span>Movimentação</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
 
 </body>
 

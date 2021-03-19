@@ -19,13 +19,19 @@
     <div layout:fragment="conteudo">
 
         <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Transportadora</h1>
+            <h1 class="h3 mb-0 text-gray-800" th:if="${transportadora.nova}">Cadastro de Transportadora</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${transportadora.nova}" 
+            	th:text="|Edição de Transportadora|">Edição de Transportadora</h1>            
+            </div>
         </div>
         <br>
 
         <form th:object="${transportadora}" th:action="@{/transportadoras/nova}" method="post">
 
             <mendes:message />
+            
+            <input type="hidden" th:field="*{codigo}"/>
 
             <div class="row">
                 <div class="col-sm-12 form-group ms-required">
@@ -168,15 +174,13 @@
                                 <td class="text-center" th:text="${transportadora.email}"></td>
                                 <td class="text-center" th:text="${transportadora.endereco.nomeCidadeSiglaEstado}"></td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/transportadoras/nova/{codigo}(codigo=${transportadora.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/transportadoras/{codigo}(codigo=${transportadora.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

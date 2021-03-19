@@ -105,6 +105,10 @@ public class Visitante implements Serializable {
 	public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "visitante-mock.png";
 	}
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
 
 	@Override
 	public int hashCode() {

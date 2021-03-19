@@ -25,5 +25,10 @@ public class CadastroSetorService {
 		
 		return setores.saveAndFlush(setor);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		setores.delete(codigo);
+	}
 
 }

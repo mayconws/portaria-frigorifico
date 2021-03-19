@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,6 +59,21 @@ public class VisitantesController {
 		ModelAndView mv = new ModelAndView("visitante/PesquisaVisitantes");		
 		mv.addObject("visitantes", visitantes.findAll());
 		return mv;
+	}
+	
+	@GetMapping("/novo/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Visitante visitante) {
+		ModelAndView mv = novo(visitante);
+		mv.addObject(visitante);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroVisitanteService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Visitante excluído com sucesso!");
+		return "redirect:/setores/novo";
 	}
 
 }

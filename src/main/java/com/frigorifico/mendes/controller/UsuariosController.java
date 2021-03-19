@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,6 +87,22 @@ public class UsuariosController {
 	@ResponseStatus(HttpStatus.OK)
 	public void atualizarStatus(@RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario) {
 		cadastroUsuarioService.alterarStatus(codigos, statusUsuario);
+	}
+	
+	@GetMapping("/novo/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo, Pageable pageable,UsuarioFilter usuarioFilter) {
+		Usuario usuario = usuarios.buscarComGrupos(codigo);
+		ModelAndView mv = novo(usuario, usuarioFilter, pageable);
+		mv.addObject(usuario);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroUsuarioService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");
+		return "redirect:/usuarios/novo";
 	}
 
 }

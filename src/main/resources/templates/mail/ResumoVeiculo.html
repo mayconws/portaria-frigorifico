@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<body style="font-family: Arial; font-size: 14px;">
+	
+	<p style="text-align: right">
+		<img src="../../static/images/logo.png" th:src="|cid:${logo}|"/>
+	</p>
+
+	<h1 style="font-size: 22px">Olá!</h1>
+	
+	<p>
+		Informamos que o veículo abaixo econtra-se disponível no pátio da unidade.
+	</p>
+	
+	<table style="width: 100%; border-collapse: collapse;  margin: 20px 0">
+		<th:block th:each="item : ${movimentacao.itens}">
+			<tr style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+				<td style="width: 50px; padding-bottom: 10px; padding-top: 10px">
+					<img style="width: 40px" src="../../static/images/veiculo-mock.png" th:src="|cid:${mockVeiculo}|" th:unless="${item.veiculo.temFoto()}"/>
+					<img style="width: 40px" src="../../static/images/veiculo-mock.png" th:src="|cid:foto-${item.veiculo.codigo}|" th:if="${item.veiculo.temFoto()}"/>
+				</td>
+				<td style="vertical-align: top; padding-bottom: 10px; padding-top: 10px">
+					<div style="display: block; font-weight: bold; font-size: 16px" th:text="${item.veiculo.placa}"></div>
+					<div style="color: #8e8e8e" th:text="${item.veiculo.modelo.nome}"></div>
+					<div style="color: #8e8e8e" th:text="${item.veiculo.transportadora.nome}"></div>
+				</td>
+				<td style="vertical-align: top; text-align: right; padding-bottom: 10px; padding-top: 10px">
+					<span style="display: block; font-weight: bold; font-size: 16px"></span>
+				</td>
+			</tr>
+			
+			<th:block th:if="${false}">
+				<tr style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+					<td style="width: 50px; padding-bottom: 10px; padding-top: 10px">
+						<img style="width: 40px" src="../../static/images/veiculo-mock.png" />
+					</td>
+					<td style="vertical-align: top; padding-bottom: 10px; padding-top: 10px">
+						<div style="display: block; font-weight: bold; font-size: 16px">ALT-1230</div>
+						<div style="color: #8e8e8e">Carreta</div>
+						<div style="color: #8e8e8e">ATDL Transportes</div>
+					</td>
+					<td style="vertical-align: top; text-align: right; padding-bottom: 10px; padding-top: 10px">
+						<span style="display: block; font-weight: bold; font-size: 16px">CARREGADO</span>
+					</td>
+				</tr>
+			</th:block>
+		</th:block>
+	</table>
+	
+	<p style="font-size: 12px">
+		* O status do veículo: <strong style="color: red" th:text="${movimentacao.status.descricao}"><span></span></strong>.
+	</p>
+	
+	<table style="width: 100%;">	
+		<tr>
+			<td style="text-align: right; font-weight: bold; font-size: 16px">Total de veículo:</td>
+			<td style="width: 100px; text-align: center; font-weight: bold; font-size: 16px">
+				<span>2</span>
+			</td>
+		</tr>
+	</table>
+	
+	<p>Obrigado.</p>
+	<p>Equipe Portaria!</p>
+</body>
+</html>

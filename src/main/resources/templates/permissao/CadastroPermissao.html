@@ -18,13 +18,19 @@
     <div layout:fragment="conteudo">
 
         <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Permissão</h1>
+            <h1 class="h3 mb-0 text-gray-800" th:if="${permissao.novo}">Cadastro de Permissão</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${permissao.novo}" 
+            	th:text="|Edição de Permissão|">Edição de Permissão</h1>            
+            </div>
         </div>
         <br>
 
         <form th:object="${permissao}" th:action="@{/permissoes/nova}" method="post">
         
         <mendes:message />
+        
+         <input type="hidden" th:field="*{codigo}"/>
 
             <div class="col-md-4 offset-md-4">
 
@@ -65,15 +71,13 @@
                             <tr th:each="permissao : ${conteudo}">
                                 <td class="text-center" th:text="${permissao.nome}"></td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/permissoes/nova/{codigo}(codigo=${permissao.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/permissoes/{codigo}(codigo=${permissao.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

@@ -47,17 +47,14 @@
 	                      <td class="text-center" th:text="${veiculo.modelo.nome}"></td>
 	                      <td class="text-center" th:text="${veiculo.transportadora.nome}"></td>                        
 	                      <td class="text-center">
-	                      	<a>
-							    <button type="button" class="btn btn-primary btn-sm">
-							        <i class="fas fa-edit"></i>
-							    </button>
-							</a>
-							<a>
-							    <button type="button" class="btn btn-secondary btn-sm"
-							    	sec:authorize="hasRole('ROLE_ADMIN')">
-							        <i class="fas fa-trash"></i>
-							    </button>
-							</a>
+	                      	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                            	th:href="@{veiculos/{codigo}(codigo=${veiculo.codigo})}">
+                                <i class="fas fa-edit"></i>
+                           	</a>
+                            <a type="button" class="btn btn-secondary btn-circle btn-sm js-tooltip" title="excluir"
+                            	href="#" data:url="@{/veiculos/novo/{codigo}(codigo=${veiculo.codigo})}" data:objeto="${veiculo.placa}">
+                           		<i class="fas fa-trash"></i>
+                           	</a>
 	                      </td>
 	                    </tr>                             
 	                  </tbody>

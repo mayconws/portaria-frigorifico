@@ -17,14 +17,20 @@
 
     <div layout:fragment="conteudo">
 
-        <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Setor</h1>
+       <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:if="${setor.novo}">Cadastro de Setor</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${setor.novo}" 
+            	th:text="|Edição de Setor|">Edição de Setor</h1>            
+            </div>
         </div>
         <br>
 
         <form th:object="${setor}" th:action="@{/setores/novo}" method="post">
 
             <mendes:message />
+            
+            <input type="hidden" th:field="*{codigo}"/>
 
             <div class="row">
                 <div class="col-6 ms-required">
@@ -71,15 +77,13 @@
                                 <td class="text-center" th:text="${setor.nome}"></td>
                                 <td class="text-center" th:text="${setor.nomeResponsavel}"></td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/setores/novo/{codigo}(codigo=${setor.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/setores/{codigo}(codigo=${setor.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

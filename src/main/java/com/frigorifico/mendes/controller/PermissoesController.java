@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,6 +53,21 @@ public class PermissoesController {
 		attributes.addFlashAttribute("mensagem", "Permissão salva com sucesso!");
 		return new ModelAndView("redirect:/permissoes/nova");
 
+	}
+	
+	@GetMapping("/nova/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Permissao permissao) {
+		ModelAndView mv = nova(permissao);
+		mv.addObject(permissao);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroPermissaoService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Setor excluído com sucesso!");
+		return "redirect:/permissoes/novo";
 	}
 
 }

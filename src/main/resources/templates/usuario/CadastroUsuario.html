@@ -22,13 +22,19 @@
 	<div layout:fragment="conteudo">
 	
 	<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Cadastro de Usuário</h1>				
-	</div>
+            <h1 class="h3 mb-0 text-gray-800" th:if="${usuario.novo}">Cadastro de Usuário</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${usuario.novo}" 
+            	th:text="|Edição de Usuário|">Edição de Usuário</h1>            
+            </div>
+        </div>
 	<br>
 	
 	<form th:object="${usuario}" th:action="@{/usuarios/novo}" method="post">
 	
 		<mendes:message/>
+		
+		<input type="hidden" th:field="*{codigo}"/>
 	
 	    <div class="row">
 	        <div class="col-sm-5 form-group ms-required">
@@ -59,7 +65,7 @@
 	            <input type="password" class="form-control" th:field="*{confirmacaoSenha}" placeholder="Digite a senha">
 	            <small class="form-text text-muted"></small>
 	        </div>
-	        <div class="col-sm-4 form-group ms-required">
+	        <div class="col-sm-4 form-group ms-required" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 	            <label class="control-label font-weight-bold" for="">Status</label><br> 
 	            <input type="checkbox" checked data-toggle="toggle" data-on="Ativo" th:field="*{ativo}" 
 	            	data-off="Inativo" data-onstyle="primary" data-offstyle="danger"data-height="25">
@@ -150,15 +156,13 @@
                                     </th:block>
                                 </td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/usuarios/novo/{codigo}(codigo=${usuario.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/usuarios/{codigo}(codigo=${usuario.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

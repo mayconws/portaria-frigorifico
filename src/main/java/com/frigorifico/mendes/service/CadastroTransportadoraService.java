@@ -25,5 +25,10 @@ public class CadastroTransportadoraService {
 		
 		transportadoras.save(transportadora);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		transportadoras.delete(codigo);
+	}
 
 }

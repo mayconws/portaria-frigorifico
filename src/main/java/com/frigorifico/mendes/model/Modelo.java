@@ -51,6 +51,10 @@ public class Modelo implements Serializable {
 	public void setVeiculos(List<Veiculo> veiculos) {
 		this.veiculos = veiculos;
 	}
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
 
 	@Override
 	public int hashCode() {

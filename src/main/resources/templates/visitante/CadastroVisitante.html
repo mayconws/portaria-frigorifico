@@ -19,13 +19,19 @@
     <div layout:fragment="conteudo">
 
         <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Visitante</h1>
+            <h1 class="h3 mb-0 text-gray-800" th:if="${visitante.novo}">Cadastro de Visitante</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${visitante.novo}" 
+            	th:text="|Edição de Visitante|">Edição de Visitante</h1>            
+            </div>
         </div>
         <br>
 
         <form th:object="${visitante}" th:action="@{/visitantes/novo}" method="post">
 
             <mendes:message />
+            
+             <input type="hidden" th:field="*{codigo}"/>
 
             <div class="row">
                 <div class="col-sm-4 form-group ms-required">
@@ -122,15 +128,13 @@
                                 <td class="text-center" th:text="${visitante.telefone}"></td>
                                 <td class="text-center" th:text="${visitante.empresa}"></td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/visitantes/novo/{codigo}(codigo=${visitante.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/visitantes/{codigo}(codigo=${visitante.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

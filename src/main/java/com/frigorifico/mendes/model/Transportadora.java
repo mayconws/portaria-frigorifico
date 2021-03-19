@@ -129,6 +129,10 @@ public class Transportadora implements Serializable {
 	public String getCpfOuCnpjSemFormatacao() {
 		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
 	}
+	
+	public boolean isNova() {
+		return codigo == null;
+	}
 
 	@Override
 	public int hashCode() {

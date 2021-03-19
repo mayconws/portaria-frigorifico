@@ -25,5 +25,10 @@ public class CadastroMotoristaService {
 		
 		motoristas.save(motorista);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		motoristas.delete(codigo);
+	}
 
 }

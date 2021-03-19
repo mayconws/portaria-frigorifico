@@ -28,13 +28,13 @@
 		<servlet.version>3.1.0</servlet.version>
 
 		<!-- Thymeleaf -->
-		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		<thymeleaf.version>3.0.1.RELEASE</thymeleaf.version>
 
 		<!-- Bean Validation / Hibernate Validator -->
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 
 		<!-- Thymeleaf - Layout Dialect -->
-		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
 
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
@@ -68,9 +68,20 @@
 		<!-- Thymeleaf - Extras Spring Security -->
 		<thymeleaf-extras-springsecurity.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity.version>
 
+		<!-- JUnit -->
+		<junit.version>4.12</junit.version>
+
+		<!-- Java Mail -->
+		<javax.mail.version>1.5.6</javax.mail.version>
+
+		<!-- AWS SDK - S3 -->
+		<aws-java-sdk-s3.version>1.10.77</aws-java-sdk-s3.version>
+
 	</properties>
 
 	<build>
+		<finalName>${artifactId}</finalName>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -276,6 +287,29 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<version>${thymeleaf-extras-springsecurity.version}</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Java Mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${javax.mail.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- AWS SDK - S3 -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
 
 	</dependencies>

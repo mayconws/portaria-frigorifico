@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,7 @@ public class TransportadorasController {
 	private CadastroTransportadoraService cadastroTransportadoraService;
 	
 	@RequestMapping("/nova")
-	public ModelAndView novo(Transportadora transportadora, TransportadoraFilter transportadoraFilter, Pageable pageable) {
+	public ModelAndView nova(Transportadora transportadora, TransportadoraFilter transportadoraFilter, Pageable pageable) {
 		ModelAndView mv = new ModelAndView("transportadora/CadastroTransportadora");
 		mv.addObject("tiposPessoa", TipoPessoa.values());
 		mv.addObject("estados", estados.findAll());	
@@ -49,14 +50,14 @@ public class TransportadorasController {
 	public ModelAndView salvar(@Valid Transportadora transportadora, BindingResult result, RedirectAttributes attributes,
 			TransportadoraFilter transportadoraFilter, Pageable pageable) {
 		if (result.hasErrors()) {
-			return novo(transportadora, transportadoraFilter, pageable);
+			return nova(transportadora, transportadoraFilter, pageable);
 		}
 		
 		try {
 			cadastroTransportadoraService.salvar(transportadora);
 		} catch (CpfCnpjTransportadoraJaCadastradoException e) {
 			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
-			return novo(transportadora, transportadoraFilter, pageable);
+			return nova(transportadora, transportadoraFilter, pageable);
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Transportadora salva com sucesso!");
@@ -82,6 +83,23 @@ public class TransportadorasController {
 				, httpServletRequest);
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
+	}
+	
+
+	@GetMapping("/nova/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Transportadora transportadora,
+			TransportadoraFilter transportadoraFilter, Pageable pageable) {
+		ModelAndView mv = nova(transportadora, transportadoraFilter, pageable);
+		mv.addObject(transportadora);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroTransportadoraService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Transportadora excluída com sucesso!");
+		return "redirect:/transportadoras/nova";
 	}
 
 }

@@ -2,12 +2,15 @@ package com.frigorifico.mendes.config.init;
 
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.frigorifico.mendes.config.JPAConfig;
+import com.frigorifico.mendes.config.MailConfig;
 import com.frigorifico.mendes.config.SecurityConfig;
 import com.frigorifico.mendes.config.ServiceConfig;
 import com.frigorifico.mendes.config.WebConfig;
@@ -21,7 +24,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebConfig.class };
+		return new Class<?>[] { WebConfig.class, MailConfig.class };
 	}
 
 	@Override
@@ -38,6 +41,12 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
 		registration.setMultipartConfig(new MultipartConfigElement(""));
+	}
+	
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		servletContext.setInitParameter("spring.profiles.default", "local");
 	}
 
 }

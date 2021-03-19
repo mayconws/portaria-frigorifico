@@ -1,162 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+<html lang="pt-br" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data">
 
 <head>
-	
-	<title>Controle de Veículo</title>
-	
+
+    <title>Controle de Veículo</title>
+
+    <link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}" />
+    <link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}" />
+    <link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
 </head>
 
 <body>
 
-	<div layout:fragment="conteudo">
-	
-		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Controle de Veículo</h1>				
-		</div>
-		<br>
-		
-		<div class="row">		
-			<!-- Card Total de veículos -->
-			<div class="col-sm-4">
-			    <div class="card border-left-primary shadow h-100 py-2">
-			        <div class="card-body">
-			            <div class="row no-gutters align-items-center">
-			                <div class="col mr-2">
-			                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de
-			                        Veículos</div>
-			                    <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
-			                </div>
-			                <div class="col-auto">
-			                    <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-			
-			<!-- Card Situação do veículo -->
-			<div class="col-sm-4">
-			    <div class="card border-left-success shadow h-100 py-2">
-			        <div class="card-body">
-			            <div class="row no-gutters align-items-center">
-			                <div class="col mr-2">
-			                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Situação do
-			                        Veículo</div>
-			                    <div class="h5 mb-0 font-weight-bold text-gray-800">Status </div>
-			                </div>
-			                <div class="col-auto">
-			                    <i class="fas fa-adjust fa-2x text-gray-300"></i>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-			
-			<!-- Card Veículos diários -->
-			<div class="col-sm-4">
-			    <div class="card border-left-info shadow h-100 py-2">
-			        <div class="card-body">
-			            <div class="row no-gutters align-items-center">
-			                <div class="col mr-2">
-			                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Veículos na data
-			                        de Hoje</div>
-			                    <div class="h5 mb-0 font-weight-bold text-gray-800">1 </div>
-			                </div>
-			                <div class="col-auto">
-			                    <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</div>		
-		</div>
-		
-		<p class="mb-4">		
-			
-		<form action="" method="post">
-			
-			<div class="row">
-			    <div class="col-sm-2 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="data">Data da Chegada</label>
-			        <input type="text" class="form-control js-date"> 
-			            <small id="data" class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-2 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="horarioCheada">Horário da Chegada</label>
-			        <input type="time" class="form-control" id="horarioCheada" aria-describedby="horarioCheada"> 
-			        <small id="horarioCheada" class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-4 form-group ms-required">
-			        <label id="veiculo" class="control-label font-weight-bold">Veículo</label>
-			        <div class="input-group">
-			         <input id="nomeVeiculo" type="text" readonly="readonly" class="form-control" placeholder="Clique na lupa para pesquisar o veículo"/>
-			          <span class="input-group-btn">
-				        <button class="btn btn-default  js-tooltip" type="button" title="Pesquisa avançada"
-				        		data-toggle="modal" data-target="#pesquisaRapidaVeiculos" >
-				        	<i class="fa fa-search" aria-hidden="true"></i>
-				        </button>
-				      </span>
-			    	</div>
-			    
-			     	<th:block th:replace="veiculo/PesquisaRapidaVeiculos :: pesquisaRapidaVeiculos"></th:block>
-				</div>
-				
-			    <div class="col-sm-4 form-group ms-required">
-			        <label id="motorista" class="control-label font-weight-bold">Motorista</label>
-			        <input type="text" class="form-control" id="visitante" 
-						placeholder="Pesquise o motorista pelo nome" autofocus="autofocus" />
-			    </div>
-			</div>
-			
-			<div class="row">
-			    <div class="col-sm-4 form-group ms-required">
-			        <label id="status" class="control-label font-weight-bold">Situação do veículo</label>
-			        <select class="form-control">
-			            <option value="">Selecione uma Opção</option>
-			            <option value="0">Vazio</option>
-			            <option value="1">Carregado</option>
-			        </select>
-			    </div>
-			    <div class="col-sm-8 form-group ms-required">
-			        <label id="veiculo" class="control-label font-weight-bold">Observação da Chegada</label>
-			        <textarea class="form-control" rows="2" cols="50"></textarea>
-			    </div>
-			</div>
-			<div class="row">
-			    <div class="col-sm-2 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
-			        <input type="text" class="form-control js-date">
-			            <small id="data" class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-2 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="horarioCheada">Horário da Saída</label>
-			        <input type="time" class="form-control" id="horarioCheada" aria-describedby="horarioCheada">
-			            <small id="horarioCheada" class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-8 form-group port-required">
-			        <label id="veiculo" class="control-label font-weight-bold">Observação da Saída</label>
-			        <textarea class="form-control" rows="2" cols="50"></textarea>
-			    </div>
-			</div>
-			
-			<div class="form-group" align="center">
-				<button type="submit" class="btn btn-primary btn-sm">
-					<i class="fas fa-check"></i> Salvar
-				</button>
-				<button type="submit" class="btn btn-secondary btn-sm">
-					<i class="fas fa-undo-alt"></i> Voltar
-				</button>			
-			</div>   	
-			
-		</form>
-		
-	</div> 
+    <div layout:fragment="conteudo">
+
+        <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:if="${movimentacao.nova}">Controle de Veículo</h1>
+            <div class="align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800" th:unless="${movimentacao.nova}"
+                    th:text="|Edição de Controle de Veículos|">Edição de Controle de Veículos</h1>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <!-- Card Total de veículos -->
+            <div class="col-sm-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Veículos no Ano</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">[[${veiculosTotal}]]</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Status do veículo -->
+            <div class="col-sm-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Status do
+                                    Veículo</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:text="${movimentacao.status.descricao}">Aguardando </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-adjust fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Veículos diários -->
+            <div class="col-sm-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data de Lançamento
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${movimentacao.diasCriacao == 0}">Hoje</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${movimentacao.diasCriacao == 1}">Há 1 dia</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${movimentacao.diasCriacao > 1}">Há [[${movimentacao.diasCriacao}]] dias</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mb-4">
+
+        <form th:action="@{/controle/veiculos/novo}" th:object="${movimentacao}" method="post"
+            class="js-formulario-principal">
+
+            <mendes:message />
+
+            <input type="hidden" id="uuid" th:field="*{uuid}" />
+            <input type="hidden" th:field="*{codigo}" />
+            <input type="hidden" th:field="*{usuario}"/>
+
+            <div class="row">
+                <div class="col-sm-4 form-group ms-required">
+                    <label id="veiculo" class="control-label font-weight-bold">Veículo</label>
+                    <input type="text" class="form-control js-nome-veiculo-input" id="veiculo"
+                        placeholder="Informe a placa do veículo" autofocus="autofocus"
+                        th:disabled="${movimentacao.salvarProibido}" data:url="@{/veiculos}" />
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="motorista">Motorista</label>
+                    <div class="input-group">
+                        <input id="nomeMotorista" type="text" readonly="readonly" class="form-control"
+                            placeholder="Clique na lupa para pesquisar o motorista" th:field="*{motorista.nome}" />
+                        <input id="codigoMotorista" type="hidden" th:field="*{motorista}" th:disabled="${movimentacao.salvarProibido}" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default  js-tooltip" type="button" title="Pesquisa avançada"
+                                data-toggle="modal" data-target="#pesquisaRapidaMotoristas">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label id="status" class="control-label font-weight-bold">Situação do veículo</label>
+                    <select class="form-control" th:field="*{situacao}" th:disabled="${movimentacao.salvarProibido}">
+                        <option value="">Selecione uma opção</option>
+                        <option th:each="situacao : ${situacoes}" th:value="${situacao}"
+                            th:text="${situacao.descricao}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-4 form-group ms-required">
+                    <label id="veiculo" class="control-label font-weight-bold">Observação da Chegada</label>
+                    <textarea class="form-control" rows="2" cols="50" th:field="*{observacaoChegada}" 
+                    	th:disabled="${movimentacao.salvarProibido}"></textarea>
+                </div>
+                <div class="col-sm-4 form-group ms-required">
+                    <label id="veiculo" class="control-label font-weight-bold">Observação da Saída</label>
+                    <textarea class="form-control" rows="2" cols="50" th:field="*{observacaoSaida}" 
+                    	th:disabled="${movimentacao.salvarProibido}"></textarea>
+                </div>
+                <div class="col-sm-2 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="data">Data da Saída</label>
+                    <input type="text" class="form-control js-date" th:field="*{dataDaSaida}" 
+                    	th:disabled="${movimentacao.salvarProibido}">
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="col-sm-2 form-group ms-required">
+                    <label class="control-label font-weight-bold" for="horarioCheada">Horário da Saída</label>
+                    <input type="time" class="form-control" id="horarioCheada" th:field="*{horarioDaSaida}" 
+                    	th:disabled="${movimentacao.salvarProibido}">
+                    <small class="form-text text-muted"></small>
+                </div>
+            </div>
+
+            <div class="row mb-3 js-tabela-veiculos-container">
+                <th:block th:replace="controleVeiculo/TabelaItensVeiculo" />
+            </div>
+
+            <div class="form-group" align="center" th:if="${movimentacao.salvarPermitido}">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary btn-sm js-submit-btn" data:acao="salvar">
+                        <i class="fas fa-check"></i> Salvar
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-sm  dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item js-submit-btn" data:acao="lancar">Salvar e Lançar</a></li>
+                        <li><a href="#" class="dropdown-item js-submit-btn" data:acao="finalizar">Salvar e Finalizar</a></li>
+                         <li><a href="#" class="dropdown-item js-submit-btn" data:acao="cancelar"
+                       	 	th:unless="${movimentacao.nova}">Cancelar</a></li>
+                        <!-- <li><a href="#" class="dropdown-item js-submit-btn" data:acao="enviarEmail">Salvar e enviar por e-mail</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Data de Chegada</th>
+                                <th class="text-center">Observação de Chegada</th>
+                                <th class="text-center">Motorista</th>
+                                <th class="text-center">Transportadora</th>
+                                <th class="text-center">Situação</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Observação de Saída</th>
+                                <th class="text-center">Data de Saída</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="movimentacao : ${conteudo}">
+                                <td class="text-center" th:text="${{movimentacao.dataChegada}}"></td>
+                                <td class="text-center" th:text="${movimentacao.observacaoChegada}"></td>
+                                <td class="text-center" th:text="${movimentacao.motorista.nome}"></td>
+                                <td class="text-center" th:text="${movimentacao.motorista.transportadora.nome}"></td>
+                                <td class="text-center" th:text="${movimentacao.situacao.descricao}"></td>
+                                <td class="text-center" th:text="${movimentacao.status.descricao}"></td>
+                                <td class="text-center" th:text="${movimentacao.observacaoSaida}"></td>
+                                <td class="text-center" th:text="${{movimentacao.dataSaida}}"></td>
+                                <td class="text-center">
+                                    <a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/controle/veiculos/novo/{codigo}(codigo=${movimentacao.codigo})}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/controle/veiculos/{codigo}(codigo=${movimentacao.codigo})}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <th:block th:replace="motorista/PesquisaRapidaMotoristas :: pesquisaRapidaMotoristas"></th:block>
+
+    </div>
 
 </body>
+
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/vendors/jquery.easy-autocomplete.min.js}"></script>
+    <script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+    <script th:src="@{/javascripts/motorista.pesquisa-rapida.js}"></script>
+    <script th:src="@{/javascripts/veiculo.controle-autocomplete.js}"></script>
+    <script th:src="@{/javascripts/veiculo.tabela-itens.js}"></script>
+    <script th:src="@{/javascripts/veiculo.controle-quantidade.js}"></script>
+    <script th:src="@{/javascripts/veiculo.controle-botoes-submit.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
+</th:block>
 
 </html>

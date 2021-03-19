@@ -17,14 +17,20 @@
 
     <div layout:fragment="conteudo">
 
-        <div class="offset-sm-4 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Modelo do Veículo</h1>
+       <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800" th:if="${modelo.novo}">Cadastro de Modelo</h1>
+            <div class="align-items-center justify-content-between mb-4">
+            	<h1 class="h3 mb-0 text-gray-800" th:unless="${modelo.novo}" 
+            	th:text="|Edição de Modelo|">Edição de Modelo</h1>            
+            </div>
         </div>
         <br>
 
         <form th:object="${modelo}" th:action="@{/modelos/novo}" method="post">
 
             <mendes:message />
+            
+            <input type="hidden" th:field="*{codigo}"/>
 
             <div class="col-md-4 offset-md-4 form-group ms-required" mendes:classforerror="nome">
                 <label class="control-label font-weight-bold" for="nome">Nome</label>
@@ -62,15 +68,13 @@
                             <tr th:each="modelo : ${conteudo}">
                                 <td class="text-center" th:text="${modelo.nome}"></td>
                                 <td class="text-center">
-                                    <a>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                	<a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/modelos/novo/{codigo}(codigo=${modelo.codigo})}">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a>
-                                        <button type="button" class="btn btn-secondary btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/modelos/{codigo}(codigo=${modelo.codigo})}">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,9 +35,8 @@ public class GruposController {
 		return mv;
 	}
 	
-	@PostMapping("/novo")
-	public ModelAndView cadastrar(@Valid Grupo grupo, BindingResult result, Model model,
-			RedirectAttributes attributes) {
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	public ModelAndView salvar(@Valid Grupo grupo, BindingResult result, Model model, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			return novo(grupo);
@@ -51,6 +52,21 @@ public class GruposController {
 		attributes.addFlashAttribute("mensagem", "Grupo salvo com sucesso!");
 		return new ModelAndView("redirect:/grupos/novo");
 
+	}
+	
+	@GetMapping("/novo/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Grupo grupo) {
+		ModelAndView mv = novo(grupo);
+		mv.addObject(grupo);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroGrupoService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Grupo excluído com sucesso!");
+		return "redirect:/grupos/novo";
 	}
 
 }

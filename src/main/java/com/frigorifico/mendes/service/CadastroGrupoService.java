@@ -25,5 +25,10 @@ public class CadastroGrupoService {
 		
 		return grupos.saveAndFlush(grupo);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		grupos.delete(codigo);
+	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,7 @@ public class SetoresController {
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Setor setor, BindingResult result, Model model, RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Setor setor, BindingResult result, Model model, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 			return novo(setor);
@@ -58,6 +59,21 @@ public class SetoresController {
 		ModelAndView mv = new ModelAndView("setor/PesquisaSetores");
 		mv.addObject("setores", setores.findAll());	
 		return mv;
+	}
+	
+	@GetMapping("/novo/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Setor setor) {
+		ModelAndView mv = novo(setor);
+		mv.addObject(setor);
+		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		cadastroSetorService.excluir(codigo);
+
+		attributes.addFlashAttribute("mensagem", "Setor excluído com sucesso!");
+		return "redirect:/setores/novo";
 	}
 
 }

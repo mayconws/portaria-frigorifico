@@ -5,7 +5,9 @@ Mendes.UploadFoto = (function() {
 	function UploadFoto() {
 		this.inputNomeFoto = $('input[name=foto]');
 		this.inputContentType = $('input[name=contentType]');
-
+		this.novaFoto = $('input[name=novaFoto]');
+		this.inputUrlFoto = $('input[name=urlFoto]');
+		
 		this.htmlFotoVeiculoTemplate = $('#foto-veiculo').html();
 		this.template = Handlebars.compile(this.htmlFotoVeiculoTemplate);
 
@@ -28,21 +30,30 @@ Mendes.UploadFoto = (function() {
 		UIkit.uploadDrop(this.uploadDrop, settings);
 		
 		if (this.inputNomeFoto.val()) {
-			onUploadCompleto.call(this, { nome:  this.inputNomeFoto.val(), contentType: this.inputContentType.val()});
+			renderizarFoto.call(this, { 
+				nome:  this.inputNomeFoto.val(), 
+				contentType: this.inputContentType.val(), 
+				url: this.inputUrlFoto.val()});
 		}
 	}
 
 	function onUploadCompleto(resposta) {
+		this.novaFoto.val('true');
+		this.inputUrlFoto.val(resposta.url);
+		renderizarFoto.call(this, resposta);
+	}
+	
+	function renderizarFoto(resposta) {
 		this.inputNomeFoto.val(resposta.nome);
 		this.inputContentType.val(resposta.contentType);
-
+		
 		this.uploadDrop.addClass('hidden');
-		var htmlFotoVeiculo = this.template({
-			nomeFoto : resposta.nome
-		});
+		
+		var htmlFotoVeiculo = this.template({url: resposta.url});
 		this.containerFotoVeiculo.append(htmlFotoVeiculo);
-
+		
 		$('.js-remove-foto').on('click', onRemoverFoto.bind(this));
+	
 	}
 
 	function onRemoverFoto() {
@@ -50,6 +61,7 @@ Mendes.UploadFoto = (function() {
 		this.uploadDrop.removeClass('hidden');
 		this.inputNomeFoto.val('');
 		this.inputContentType.val('');
+		this.novaFoto.val('false');
 	}
 	
 	function adicionarCsrfToken(xhr) {

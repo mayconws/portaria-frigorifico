@@ -51,6 +51,10 @@ public class Setor implements Serializable {
 	public void setNomeResponsavel(String nomeResponsavel) {
 		this.nomeResponsavel = nomeResponsavel;
 	}
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
 
 	@Override
 	public int hashCode() {

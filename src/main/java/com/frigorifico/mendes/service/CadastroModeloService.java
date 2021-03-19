@@ -25,5 +25,10 @@ public class CadastroModeloService {
 		
 		return modelos.saveAndFlush(modelo);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		modelos.delete(codigo);
+	}
 
 }

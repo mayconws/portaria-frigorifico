@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,11 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
+import com.frigorifico.mendes.repository.listener.VeiculoEntityListener;
+
+@EntityListeners(VeiculoEntityListener.class)
 @Entity
 @Table(name = "veiculo")
 public class Veiculo implements Serializable {
@@ -44,6 +49,15 @@ public class Veiculo implements Serializable {
 
 	@Column(name = "content_type")
 	private String contentType;
+	
+	@Transient
+	private boolean novaFoto;
+	
+	@Transient
+	private String urlFoto;
+
+	@Transient
+	private String urlThumbnailFoto;
 
 	@PrePersist
 	@PreUpdate
@@ -98,8 +112,41 @@ public class Veiculo implements Serializable {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+	
 	public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "veiculo-mock.png";
+	}
+	
+	public boolean temFoto() {
+		return !StringUtils.isEmpty(this.foto);
+	}
+	
+	public boolean isNova() {
+		return codigo == null;
+	}
+
+	public boolean isNovaFoto() {
+		return novaFoto;
+	}
+
+	public void setNovaFoto(boolean novaFoto) {
+		this.novaFoto = novaFoto;
+	}
+	
+	public String getUrlFoto() {
+		return urlFoto;
+	}
+
+	public void setUrlFoto(String urlFoto) {
+		this.urlFoto = urlFoto;
+	}
+
+	public String getUrlThumbnailFoto() {
+		return urlThumbnailFoto;
+	}
+
+	public void setUrlThumbnailFoto(String urlThumbnailFoto) {
+		this.urlThumbnailFoto = urlThumbnailFoto;
 	}
 
 	@Override

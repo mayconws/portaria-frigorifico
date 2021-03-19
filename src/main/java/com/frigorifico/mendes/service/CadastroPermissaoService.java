@@ -25,5 +25,10 @@ public class CadastroPermissaoService {
 		
 		return permissoes.saveAndFlush(permissao);
 	}
+	
+	@Transactional
+	public void excluir(Long codigo) {
+		permissoes.delete(codigo);
+	}
 
 }

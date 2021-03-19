@@ -54,6 +54,10 @@ public class Grupo implements Serializable {
 	public void setPermissoes(List<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
 
 	@Override
 	public int hashCode() {
