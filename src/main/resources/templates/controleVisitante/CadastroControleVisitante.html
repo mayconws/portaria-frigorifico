@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao"
-	xmlns:mendes="http://mendes.frigorifico.com">
+	xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 	
 	<title>Controle de Visitante</title>
+	
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}" />
+    <link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}" />
+    <link th:href="@{/layout/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
 	
 </head>
 
@@ -16,9 +22,13 @@
 	<div layout:fragment="conteudo">
 	
 		<div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Controle de Visitante</h1>				
-		</div>
-		<br>
+            <h1 class="h3 mb-0 text-gray-800" th:if="${controle.novo}">Controle de Visitante</h1>
+            <div class="align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800" th:unless="${controle.novo}"
+                    th:text="|Edição de Controle de Visitantes|">Edição de Controle de Visitante</h1>
+            </div>
+        </div>
+        <br>
 		
 	<div class="row">
 	    <!-- Card Total de Visitantes -->
@@ -29,7 +39,7 @@
 	                    <div class="col mr-2">
 	                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de
 	                            Visitantes</div>
-	                        <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+	                        <div class="h5 mb-0 font-weight-bold text-gray-800">[[${visitantesTotal}]]</div>
 	                    </div>
 	                    <div class="col-auto">
 	                        <i class="fas fas fa-users fa-4x text-gray-300"></i>
@@ -45,9 +55,15 @@
 	            <div class="card-body">
 	                <div class="row no-gutters align-items-center">
 	                    <div class="col mr-2">
-	                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Visitantes na data
-	                            de Hoje</div>
-	                        <div class="h5 mb-0 font-weight-bold text-gray-800">1 </div>
+	                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Data de Lançamento</div>
+	                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                        	 <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${controle.diasCriacao == 0}">Hoje</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${controle.diasCriacao == 1}">Há 1 dia</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                    th:if="${controle.diasCriacao > 1}">Há [[${controle.diasCriacao}]] dias</div>
+	                        </div>
 	                    </div>
 	                    <div class="col-auto">
 	                        <i class="fas fas fa-male fa-4x text-gray-300"></i>
@@ -60,62 +76,136 @@
 	
 	<p class="mb-4">
 			
-		<form action="" method="post">
+		<form th:action="@{/controle/visitantes/novo}" th:object="${controle}" method="post"
+				class="js-formulario-principal">           
+            
+            <mendes:message />
+
+            <input type="hidden" id="uuid" th:field="*{uuid}" />
+            <input type="hidden" th:field="*{codigo}" />
+            <input type="hidden" th:field="*{usuario}"/>
 			
 			<div class="row">
-			    <div class="col-sm-3 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="data">Data da Entrada</label>
-			        <input type="text" class="form-control js-date" placeholder="Informe a data de entrada">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-3 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="horario">Hora da Entrada</label>
-			        <input type="time" class="form-control" id="horario" aria-describedby="data">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-3 form-group ms-required">
+			    <div class="col-sm-4 form-group ms-required">
 			        <label id="motorista" class="control-label font-weight-bold">Visitante</label>
-			        <input type="text" class="form-control" id="visitante" 
-						placeholder="Pesquise o visitante pelo nome" autofocus="autofocus" />
+			         <select class="form-control" th:field="*{visitante}" th:disabled="${controle.salvarProibido}">
+	                 	<option value="">Selecione um visitante</option>
+	                    <option th:each="visitante : ${visitantes}" th:value="${visitante.codigo}"
+	                            th:text="${visitante.nome}"></option>
+                    </select>
 			    </div>
-			    <div class="col-sm-3 form-group ms-required">
+			    <div class="col-sm-4 form-group ms-required">
 			        <label id="motorista" class="control-label font-weight-bold">Setor da Empresa</label>
-			        <select class="form-control">
-			            <option value="0">Selecione um Setor</option>
-			        </select>
+			       	  <select class="form-control" th:field="*{setor}" th:disabled="${controle.salvarProibido}">
+	                 	<option value="">Selecione um setor</option>
+	                    <option th:each="setor : ${setores}" th:value="${setor.codigo}"
+	                            th:text="${setor.nome}"></option>
+                    </select>
 			    </div>
+<!-- 			     <div class="col-sm-4 form-group ms-required"> -->
+<!-- 			        <label class="control-label font-weight-bold" for="data">Data da Saída</label> -->
+<!-- 			        <input type="text" class="form-control js-date" th:disabled="${controle.salvarProibido}" -->
+<!-- 			        	placeholder="Informe a data de saída" th:field="*{dataDaSaida}">  -->
+<!-- 			            <small class="form-text text-muted"></small> -->
+<!-- 			    </div> -->
+			     <div class="col-sm-4 form-group ms-required">
+			        <label id="observacao" class="control-label font-weight-bold">Observação</label>
+			        <textarea class="form-control" rows="1" cols="50" 
+			        	th:disabled="${controle.salvarProibido}" th:field="*{observacao}"></textarea>
+			    </div>
+<!-- 			    <div class="col-sm-3 form-group ms-required"> -->
+<!-- 			        <label class="control-label font-weight-bold" for="horarioSaida">Hora da Saída</label> -->
+<!-- 			        <input type="time" class="form-control" id="horarioSaida" th:disabled="${controle.salvarProibido}" -->
+<!-- 			        	aria-describedby="data" th:field="*{horarioDaSaida}"> -->
+<!-- 			        <small class="form-text text-muted"></small> -->
+<!-- 			    </div> -->
 			</div>
 
-			<div class="row">
-			    <div class="col-sm-6 form-group ms-required">
-			        <label id="observacao" class="control-label font-weight-bold">Observação</label>
-			        <textarea class="form-control" rows="2" cols="50"></textarea>
-			    </div>
-			    <div class="col-sm-3 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="data">Data da Saída</label>
-			        <input type="text" class="form-control js-date" placeholder="Informe a data de saída"> 
-			            <small class="form-text text-muted"></small>
-			    </div>
-			    <div class="col-sm-3 form-group ms-required">
-			        <label class="control-label font-weight-bold" for="horarioSaida">Hora da Saída</label>
-			        <input type="time" class="form-control" id="horarioSaida" aria-describedby="data">
-			        <small class="form-text text-muted"></small>
-			    </div>
-			</div>
+<!-- 			<div class="row"> -->
+			   			   
+<!-- 			</div> -->
 			
-			<div class="form-group" align="center">
-				<button type="submit" class="btn btn-primary btn-sm">
-					<i class="fas fa-check"></i> Salvar
-				</button>
-				<button type="submit" class="btn btn-secondary btn-sm">
-					<i class="fas fa-undo-alt"></i> Voltar
-				</button>			
-			</div>   	
+			  <div class="form-group" align="center" th:if="${controle.salvarPermitido}">			           
+                    <button type="submit" class="btn btn-primary btn-sm js-submit-btn" data:acao="salvar">
+                        <i class="fa fa-pause"></i> Aguardar
+                    </button>
+                    
+                     <button type="submit" class="btn btn-success btn-sm js-submit-btn" data:acao="lancar">
+                        <i class="fa fa-spinner"></i> Em Visita
+                    </button>
+                    
+                    <button type="submit" class="btn btn-secondary btn-sm js-submit-btn" data:acao="finalizar">
+                        <i class="fa fa-flag-checkered"></i> Finalizar 
+                    </button>
+                    
+                    <button type="submit" class="btn btn-danger btn-sm js-submit-btn" data:acao="cancelar"
+                    		th:unless="${controle.novo}">
+                        <i class="fa fa-times"></i> Cancelar 
+                    </button>           
+            </div>  	
 			
 		</form>
+		
+		<!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Movimentação de Visitantes</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Data da Entrada</th>
+                                <th class="text-center">Visitante</th>
+                                <th class="text-center">Setor da Empresa</th>
+                                <th class="text-center">Observação</th>
+                                <th class="text-center">Status</th>                                                                                    
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="controle : ${conteudo}">
+                                <td class="text-center" th:text="${{controle.dataEntrada}}"></td>
+                                <td class="text-center" th:text="${controle.visitante.nome}"></td>
+                                <td class="text-center" th:text="${controle.setor.nome}"></td>
+                                <td class="text-center" th:text="${controle.observacao}"></td> 
+                                 <td class="text-center">
+                                	<span class="badge badge-primary"
+									      th:text="${controle.status.descricao}"
+									     th:classappend="${#strings.toString(controle.status) == 'AGUARDANDO' ? 'label-success' : 'badge-secondary'}">
+									</span>
+                                </td>                            
+<!--                                 <td class="text-center" th:text="${{controle.dataSaida}}"></td> -->
+                                <td class="text-center">
+                                    <a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
+                                        th:href="@{/controle/visitantes/novo/{codigo}(codigo=${controle.codigo})}">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
+                                        th:href="@{/controle/visitantes/{codigo}(codigo=${controle.codigo})}"
+                                        sec:authorize="hasRole('ADMIN')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
 		
 	</div> 
 
 </body>
+
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/veiculo.controle-botoes-submit.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/layout/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/layout/js/demo/datatables-demo.js}"></script>
+</th:block>
 
 </html>

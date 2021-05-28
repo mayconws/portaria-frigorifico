@@ -21,15 +21,15 @@ public class MovimentacaoValidator implements Validator {
 		
 		Movimentacao movimentacao = (Movimentacao) target;
 		validarApenasSeInformouDataDaSaida(errors, movimentacao);
-		validarSeInformouUmVeiculo(errors, movimentacao);
+//		validarSeInformouUmVeiculo(errors, movimentacao);
 		
 	}
 
-	private void validarSeInformouUmVeiculo(Errors errors, Movimentacao movimentacao) {
-		if (movimentacao.getItens().isEmpty()) {
-			errors.reject("", "Informe um veículo na movimentação");
-		}
-	}
+//	private void validarSeInformouUmVeiculo(Errors errors, Movimentacao movimentacao) {
+//		if (movimentacao.getItens().isEmpty()) {
+//			errors.reject("", "Informe um veículo na movimentação");
+//		}
+//	}
 
 	private void validarApenasSeInformouDataDaSaida(Errors errors, Movimentacao movimentacao) {
 		if (movimentacao.getDataDaSaida() != null && movimentacao.getHorarioDaSaida() == null) {

@@ -5,10 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,9 +14,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "controle")
@@ -34,7 +34,7 @@ public class Controle implements Serializable {
 	private LocalDateTime dataEntrada;
 
 	@Column(name = "data_saida")
-	private LocalDateTime dataSaida;	
+	private Date dataSaida = new Date();
 
 	@Column(name = "observacao")
 	private String observacao;
@@ -42,8 +42,19 @@ public class Controle implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusVisitante status = StatusVisitante.AGUARDANDO;
 	
-	@OneToMany(mappedBy = "controle", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemVisitante> itens = new ArrayList<>();
+	@ManyToOne
+	@NotNull(message = "O visitante é obrigatório")
+	@JoinColumn(name = "codigo_visitante")
+	private Visitante visitante;
+	
+	@ManyToOne
+	@NotNull(message = "O setor é obrigatório")
+	@JoinColumn(name = "codigo_setor")
+	private Setor setor;
+
+	@ManyToOne
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
 	
 	@Transient
 	private String uuid;
@@ -69,12 +80,13 @@ public class Controle implements Serializable {
 	public void setDataEntrada(LocalDateTime dataEntrada) {
 		this.dataEntrada = dataEntrada;
 	}
+	
 
-	public LocalDateTime getDataSaida() {
+	public Date getDataSaida() {
 		return dataSaida;
 	}
 
-	public void setDataSaida(LocalDateTime dataSaida) {
+	public void setDataSaida(Date dataSaida) {
 		this.dataSaida = dataSaida;
 	}
 
@@ -94,12 +106,28 @@ public class Controle implements Serializable {
 		this.status = status;
 	}
 
-	public List<ItemVisitante> getItens() {
-		return itens;
+	public Visitante getVisitante() {
+		return visitante;
 	}
 
-	public void setItens(List<ItemVisitante> itens) {
-		this.itens = itens;
+	public void setVisitante(Visitante visitante) {
+		this.visitante = visitante;
+	}
+
+	public Setor getSetor() {
+		return setor;
+	}
+
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getUuid() {
@@ -126,11 +154,6 @@ public class Controle implements Serializable {
 		this.horarioDaSaida = horarioDaSaida;
 	}
 	
-	public void adicionarItens(List<ItemVisitante> itens) {
-		this.itens = itens;
-		this.itens.forEach(i -> i.setControle(this));
-	}
-	
 	public boolean isSalvarPermitido() {
 		return !status.equals(StatusVisitante.CANCELADO);
 	}
@@ -142,6 +165,10 @@ public class Controle implements Serializable {
 	public Long getDiasCriacao() {
 		LocalDate inicio = dataEntrada != null ? dataEntrada.toLocalDate() : LocalDate.now();
 		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
+	}
+	
+	public boolean isNovo() {
+		return codigo == null;
 	}
 
 	@Override

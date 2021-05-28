@@ -11,5 +11,7 @@ import com.frigorifico.mendes.model.Visitante;
 public interface Visitantes extends JpaRepository<Visitante, Long> {
 	
 	public Optional<Visitante> findByNomeIgnoreCase(String nome);
+	
+	public Optional<Visitante> findByCpfIgnoreCase(String cpf);
 
 }

@@ -3,7 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="layout/LayoutPadrao" 
-    xmlns:mendes="http://mendes.frigorifico.com">
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -36,7 +38,7 @@
             <div class="row">
                 <div class="col-sm-4 form-group ms-required" mendes:classforerror="placa">
                     <label class="control-label font-weight-bold" for="placa">Placa</label>
-                    <input type="text" class="control-label form-control placa" id="placa" th:field="*{placa}">
+                    <input type="text" class="control-label form-control ms-placa" id="placa" th:field="*{placa}">
                     <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-4 form-group ms-required" mendes:classforerror="modelo">
@@ -117,7 +119,7 @@
                             <tr th:each="veiculo : ${conteudo}">
                                 <td class="text-center table-veiculos-col-foto">
 <!--                            	<img th:src="@{/fotos/thumbnail.{foto}(foto=${veiculo.fotoOuMock})}" class="img-thumbnail" /> -->
-									<img th:src="${veiculo.urlThumbnailFoto}" class="img-responsive"/>	
+									<img th:src="${veiculo.urlThumbnailFoto}" class="img-thumbnail"/>	
                                 </td>
                                 <td class="text-center" th:text="${veiculo.placa}"></td>
                                 <td class="text-center" th:text="${veiculo.modelo.nome}"></td>
@@ -128,7 +130,8 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
-                                        th:href="@{/veiculos/{codigo}(codigo=${veiculo.codigo})}">
+                                        th:href="@{/veiculos/{codigo}(codigo=${veiculo.codigo})}"
+                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

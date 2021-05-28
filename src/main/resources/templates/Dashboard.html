@@ -3,7 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="layout/LayoutPadrao" 
-    xmlns:mendes="http://mendes.frigorifico.com">
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -31,7 +33,6 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de Veículos
-                                No Ano
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">[[${veiculosNoAno}]]</div>
                             </div>
@@ -71,7 +72,7 @@
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">112</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">[[${visitantesNoAno}]]</div>
                                     </div>
                                     <div class="col"></div>
                                 </div>
@@ -92,7 +93,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Visitantes no Mês
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">36</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">[[${visitantesNoMes}]]</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fa fa-male fa-2x text-gray-300"></i>
@@ -128,7 +129,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-bar">
-                            <canvas id="myBarChart"></canvas>
+                            <canvas id="graficoControlePorMes"></canvas>
                         </div>	                      
                     </div>
                 </div>
@@ -142,6 +143,7 @@
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/vendors/Chart.min.js}"></script>
 	<script th:src="@{/javascripts/dashboard.graficos.js}"></script>
+	<script th:src="@{/javascripts/dashboard.graficos-visitantes.js}"></script>
 </th:block>
 
 </html>

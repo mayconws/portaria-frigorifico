@@ -4,7 +4,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     xmlns:data="http://www.thymeleaf.org/extras/data" 
     layout:decorate="layout/LayoutPadrao"
-    xmlns:mendes="http://mendes.frigorifico.com">
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -73,13 +74,13 @@
                 </div>
                 <div class="col-sm-5 form-group ms-required">
                     <label class="control-label font-weight-bold" for="logradouro">Endereço</label>
-                    <input type="text" class="form-control" th:field="*{endereco.logradouro}" aria-describedby="email"
+                    <input type="text" class="form-control rua" th:field="*{endereco.logradouro}" aria-describedby="email"
                         placeholder="Digite o endereço">
                     <small class="form-text text-muted"></small>
                 </div>
                 <div class="col-sm-5 form-group ms-required">
                     <label class="control-label font-weight-bold" for="bairro">Bairro</label>
-                    <input type="text" class="form-control" th:field="*{endereco.bairro}" aria-describedby="bairro"
+                    <input type="text" class="form-control bairro" th:field="*{endereco.bairro}" aria-describedby="bairro"
                         placeholder="Digite o bairro">
                     <small class="form-text text-muted"></small>
                 </div>
@@ -179,7 +180,8 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
-                                        th:href="@{/transportadoras/{codigo}(codigo=${transportadora.codigo})}">
+                                        th:href="@{/transportadoras/{codigo}(codigo=${transportadora.codigo})}"
+                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Veículos no Ano</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total de Veiculos</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">[[${veiculosTotal}]]</div>
                             </div>
                             <div class="col-auto">
@@ -104,9 +104,11 @@
             <div class="row">
                 <div class="col-sm-4 form-group ms-required">
                     <label id="veiculo" class="control-label font-weight-bold">Veículo</label>
-                    <input type="text" class="form-control js-nome-veiculo-input" id="veiculo"
-                        placeholder="Informe a placa do veículo" autofocus="autofocus"
-                        th:disabled="${movimentacao.salvarProibido}" data:url="@{/veiculos}" />
+                        <select class="form-control" th:field="*{veiculo}" th:disabled="${movimentacao.salvarProibido}">
+	                        <option value="">Selecione um veículo</option>
+	                        <option th:each="veiculo : ${veiculos}" th:value="${veiculo.codigo}"
+	                            th:text="${veiculo.placa}"></option>
+                    	</select>
                 </div>
                 <div class="col-sm-4 form-group ms-required">
                     <label class="control-label font-weight-bold" for="motorista">Motorista</label>
@@ -134,52 +136,51 @@
 
             <div class="row">
 
-                <div class="col-sm-4 form-group ms-required">
+                <div class="col-sm-6 form-group ms-required">
                     <label id="veiculo" class="control-label font-weight-bold">Observação da Chegada</label>
                     <textarea class="form-control" rows="2" cols="50" th:field="*{observacaoChegada}" 
                     	th:disabled="${movimentacao.salvarProibido}"></textarea>
                 </div>
-                <div class="col-sm-4 form-group ms-required">
+                <div class="col-sm-6 form-group ms-required">
                     <label id="veiculo" class="control-label font-weight-bold">Observação da Saída</label>
                     <textarea class="form-control" rows="2" cols="50" th:field="*{observacaoSaida}" 
                     	th:disabled="${movimentacao.salvarProibido}"></textarea>
                 </div>
-                <div class="col-sm-2 form-group ms-required">
-                    <label class="control-label font-weight-bold" for="data">Data da Saída</label>
-                    <input type="text" class="form-control js-date" th:field="*{dataDaSaida}" 
-                    	th:disabled="${movimentacao.salvarProibido}">
-                    <small class="form-text text-muted"></small>
-                </div>
-                <div class="col-sm-2 form-group ms-required">
-                    <label class="control-label font-weight-bold" for="horarioCheada">Horário da Saída</label>
-                    <input type="time" class="form-control" id="horarioCheada" th:field="*{horarioDaSaida}" 
-                    	th:disabled="${movimentacao.salvarProibido}">
-                    <small class="form-text text-muted"></small>
-                </div>
+<!--                 <div class="col-sm-2 form-group ms-required"> -->
+<!--                     <label class="control-label font-weight-bold" for="data">Data da Saída</label> -->
+<!--                     <input type="text" class="form-control js-date" th:field="*{dataDaSaida}"  -->
+<!--                     	th:disabled="${movimentacao.salvarProibido}"> -->
+<!--                     <small class="form-text text-muted"></small> -->
+<!--                 </div> -->
+<!--                 <div class="col-sm-2 form-group ms-required"> -->
+<!--                     <label class="control-label font-weight-bold" for="horarioCheada">Horário da Saída</label> -->
+<!--                     <input type="time" class="form-control" id="horarioCheada" th:field="*{horarioDaSaida}"  -->
+<!--                     	th:disabled="${movimentacao.salvarProibido}"> -->
+<!--                     <small class="form-text text-muted"></small> -->
+<!--                 </div> -->
             </div>
 
-            <div class="row mb-3 js-tabela-veiculos-container">
-                <th:block th:replace="controleVeiculo/TabelaItensVeiculo" />
-            </div>
+<!--             <div class="row mb-3 js-tabela-veiculos-container"> -->
+<!--                 <th:block th:replace="controleVeiculo/TabelaItensVeiculo" /> -->
+<!--             </div> -->
 
             <div class="form-group" align="center" th:if="${movimentacao.salvarPermitido}">
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary btn-sm js-submit-btn" data:acao="salvar">
-                        <i class="fas fa-check"></i> Salvar
+                   	<button type="submit" class="btn btn-primary btn-sm js-submit-btn" data:acao="salvar">
+                        <i class="fa fa-pause"></i> Aguardar
                     </button>
-
-                    <button type="button" class="btn btn-primary btn-sm  dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
+                    
+                    <button type="submit" class="btn btn-success btn-sm js-submit-btn" data:acao="lancar">
+                        <i class="fa fa-spinner"></i> Em Operação
                     </button>
-
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item js-submit-btn" data:acao="lancar">Salvar e Lançar</a></li>
-                        <li><a href="#" class="dropdown-item js-submit-btn" data:acao="finalizar">Salvar e Finalizar</a></li>
-                         <li><a href="#" class="dropdown-item js-submit-btn" data:acao="cancelar"
-                       	 	th:unless="${movimentacao.nova}">Cancelar</a></li>
-                        <!-- <li><a href="#" class="dropdown-item js-submit-btn" data:acao="enviarEmail">Salvar e enviar por e-mail</a></li> -->
-                    </ul>
-                </div>
+                    
+                    <button type="submit" class="btn btn-secondary btn-sm js-submit-btn" data:acao="finalizar">
+                        <i class="fa fa-flag-checkered"></i> Finalizar 
+                    </button>
+                    
+                    <button type="submit" class="btn btn-danger btn-sm js-submit-btn" data:acao="cancelar"
+                    		th:unless="${movimentacao.nova}">
+                        <i class="fa fa-times"></i> Cancelar 
+                    </button> 
             </div>
 
         </form>
@@ -187,41 +188,52 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Conteúdo da Tabela</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Movimentação de Veículos</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th class="text-center">Data de Chegada</th>
+                                <th class="text-center">Chegada</th>
+                                <th class="text-center">Placa</th>
                                 <th class="text-center">Observação de Chegada</th>
-                                <th class="text-center">Motorista</th>
+                                <th class="text-center">Motorista</th>                              
                                 <th class="text-center">Transportadora</th>
                                 <th class="text-center">Situação</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Observação de Saída</th>
-                                <th class="text-center">Data de Saída</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="movimentacao : ${conteudo}">
                                 <td class="text-center" th:text="${{movimentacao.dataChegada}}"></td>
+                                   <td class="text-center" th:text="${movimentacao.veiculo.placa}"></td>
                                 <td class="text-center" th:text="${movimentacao.observacaoChegada}"></td>
-                                <td class="text-center" th:text="${movimentacao.motorista.nome}"></td>
+                                <td class="text-center" th:text="${movimentacao.motorista.nome}"></td>                             
                                 <td class="text-center" th:text="${movimentacao.motorista.transportadora.nome}"></td>
-                                <td class="text-center" th:text="${movimentacao.situacao.descricao}"></td>
-                                <td class="text-center" th:text="${movimentacao.status.descricao}"></td>
+                                <td class="text-center">
+                                	<span class="badge badge-secondary" th:text="${movimentacao.situacao.descricao}"
+									      th:classappend="${#strings.toString(movimentacao.situacao) == 'CARREGADO' ? 'label-success' : 'badge-success'}">
+									</span>
+                                </td>
+                                <td class="text-center">
+                                	<span class="badge badge-primary"
+									      th:text="${movimentacao.status.descricao}"
+									     th:classappend="${#strings.toString(movimentacao.status) == 'OPERACAO' ? 'label-secondary' : 'badge-secondary'}">
+									</span>
+                                </td>
                                 <td class="text-center" th:text="${movimentacao.observacaoSaida}"></td>
-                                <td class="text-center" th:text="${{movimentacao.dataSaida}}"></td>
+<!--                                 <td class="text-center" th:text="${{movimentacao.dataSaida}}"></td> -->
                                 <td class="text-center">
                                     <a type="button" class="btn btn-primary btn-circle btn-sm js-tooltip" title="editar"
                                         th:href="@{/controle/veiculos/novo/{codigo}(codigo=${movimentacao.codigo})}">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fa fa-bars"></i>
                                     </a>
                                     <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
-                                        th:href="@{/controle/veiculos/{codigo}(codigo=${movimentacao.codigo})}">
+                                        th:href="@{/controle/veiculos/{codigo}(codigo=${movimentacao.codigo})}"
+                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

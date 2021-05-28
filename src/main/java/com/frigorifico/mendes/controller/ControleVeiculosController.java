@@ -23,8 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frigorifico.mendes.controller.validator.MovimentacaoValidator;
 import com.frigorifico.mendes.dto.MovimentacaoMes;
-import com.frigorifico.mendes.mail.Mailer;
-import com.frigorifico.mendes.model.ItemVeiculo;
 import com.frigorifico.mendes.model.Movimentacao;
 import com.frigorifico.mendes.model.SituacaoVeiculo;
 import com.frigorifico.mendes.model.Veiculo;
@@ -33,7 +31,6 @@ import com.frigorifico.mendes.repository.Movimentacoes;
 import com.frigorifico.mendes.repository.Veiculos;
 import com.frigorifico.mendes.security.UsuarioSistema;
 import com.frigorifico.mendes.service.CadastroControleVeiculoService;
-import com.frigorifico.mendes.session.TabelasItensSession;
 
 @Controller
 @RequestMapping("/controle/veiculos")
@@ -48,8 +45,8 @@ public class ControleVeiculosController {
 	@Autowired
 	private Movimentacoes movimentacoes;
 	
-	@Autowired
-	private TabelasItensSession tabelaItens;
+//	@Autowired
+//	private TabelasItensSession tabelaItens;
 	
 	@Autowired
 	private CadastroControleVeiculoService cadastroControleVeiculoService;
@@ -57,8 +54,8 @@ public class ControleVeiculosController {
 	@Autowired
 	private MovimentacaoValidator movimentacaoValidator;
 	
-	@Autowired
-	private Mailer mailer;
+//	@Autowired
+//	private Mailer mailer;
 	
 	@InitBinder("movimentacao")
 	public void inicializarValidador(WebDataBinder binder) {
@@ -75,8 +72,6 @@ public class ControleVeiculosController {
 		mv.addObject("veiculosTotal", movimentacoes.veiculosTotal());
 		
 		setUuid(movimentacao);
-		
-		mv.addObject("itens", movimentacao.getItens());
 		
 		return mv;
 	}
@@ -133,42 +128,27 @@ public class ControleVeiculosController {
 		movimentacao.setUsuario(usuarioSistema.getUsuario());		
 		
 		cadastroControleVeiculoService.salvar(movimentacao);
-		mailer.enviar(movimentacao);
+//		mailer.enviar(movimentacao);
 		
 		attributes.addFlashAttribute("mensagem", "Movimentação enviada por e-mail com sucesso");
 		return new ModelAndView("redirect:/controle/veiculos/novo");
 	}
 	
-	@PostMapping("/item")
-	public ModelAndView adicionarVeiculo(Long codigoVeiculo, String uuid) {
-		Veiculo veiculo = veiculos.findOne(codigoVeiculo);
-		tabelaItens.adicionarVeiculo(uuid, veiculo, 1);
-		return mvTabelaItensVeiculo(uuid);
-		
-	}
 	
 	@PutMapping("/item/{codigoVeiculo}")
 	public ModelAndView alterarQuantidadeItem(@PathVariable("codigoVeiculo") Veiculo veiculo, 
 			Integer quantidade, String uuid) {
-		tabelaItens.alterarQuantidadeItens(uuid, veiculo, quantidade);
 		return mvTabelaItensVeiculo(uuid);
 	}
 	
 	@DeleteMapping("/item/{uuid}/{codigoVeiculo}")
 	public ModelAndView excluirItem(@PathVariable("codigoVeiculo") Veiculo veiculo, 
 			@PathVariable String uuid) {
-		tabelaItens.excluirItem(uuid, veiculo);
 		return mvTabelaItensVeiculo(uuid);
 	}
 	
 	@GetMapping("/novo/{codigo}")
-	public ModelAndView editar(@PathVariable Long codigo) {
-		Movimentacao movimentacao = movimentacoes.buscarVeiculos(codigo);
-		
-		setUuid(movimentacao);
-		for (ItemVeiculo item : movimentacao.getItens()) {
-			tabelaItens.adicionarVeiculo(movimentacao.getUuid(), item.getVeiculo(), item.getQuantidadeVeiculo());
-		}
+	public ModelAndView editar(@PathVariable("codigo") Movimentacao movimentacao) {
 		
 		ModelAndView mv = novo(movimentacao);
 		mv.addObject(movimentacao);
@@ -213,13 +193,10 @@ public class ControleVeiculosController {
 
 	private ModelAndView mvTabelaItensVeiculo(String uuid) {
 		ModelAndView mv = new ModelAndView("controleVeiculo/TabelaItensVeiculo");
-		mv.addObject("itens", tabelaItens.getItens(uuid));
-		mv.addObject("quantidadeTotal", tabelaItens.getQuantidadeTotal(uuid));
 		return mv;
 	}
 	
 	private void validarMovimentacao(Movimentacao movimentacao, BindingResult result) {
-		movimentacao.adicionarItens(tabelaItens.getItens(movimentacao.getUuid()));
 		
 		movimentacaoValidator.validate(movimentacao, result);
 	}

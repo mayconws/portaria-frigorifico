@@ -1,14 +1,12 @@
 package com.frigorifico.mendes.service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.frigorifico.mendes.model.ItemVeiculo;
 import com.frigorifico.mendes.model.Movimentacao;
 import com.frigorifico.mendes.model.StatusVeiculo;
 import com.frigorifico.mendes.repository.Movimentacoes;
@@ -22,7 +20,7 @@ public class CadastroControleVeiculoService {
 	@Transactional
 	public void salvar(Movimentacao controleVeiculo) {
 		if (controleVeiculo.isSalvarProibido()) {
-			throw new RuntimeException("Usuário tentando salvar uma venda proibida");
+			throw new RuntimeException("Usuário tentando salvar uma movimentação proibida");
 		}
 		
 		if (controleVeiculo.isNova()) {
@@ -31,16 +29,6 @@ public class CadastroControleVeiculoService {
 		} else {
 			Movimentacao movimentacaoExistente = movimentacoes.findOne(controleVeiculo.getCodigo());
 			controleVeiculo.setDataChegada(movimentacaoExistente.getDataChegada());
-		}
-		
-		controleVeiculo.getItens().stream()
-				.map(ItemVeiculo::getQuantidadeVeiculo)
-				.reduce(Integer::sum)
-				.get();
-		
-		if (controleVeiculo.getDataDaSaida() != null) {
-			controleVeiculo.setDataSaida(LocalDateTime.of(controleVeiculo.getDataDaSaida(), 
-					controleVeiculo.getHorarioDaSaida() != null ? controleVeiculo.getHorarioDaSaida() : LocalTime.NOON));
 		}
 		
 		movimentacoes.save(controleVeiculo);

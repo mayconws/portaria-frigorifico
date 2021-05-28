@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.BeansException;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -29,6 +31,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -43,7 +47,7 @@ import com.frigorifico.mendes.controller.converter.EstadoConverter;
 import com.frigorifico.mendes.controller.converter.GrupoConverter;
 import com.frigorifico.mendes.controller.converter.ModeloConverter;
 import com.frigorifico.mendes.controller.converter.TransportadoraConverter;
-import com.frigorifico.mendes.session.TabelasItensSession;
+import com.frigorifico.mendes.controller.converter.VeiculoConverter;
 import com.frigorifico.mendes.thymeleaf.MendesDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -51,7 +55,7 @@ import com.google.common.cache.CacheBuilder;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { VeiculosController.class, TabelasItensSession.class })
+@ComponentScan(basePackageClasses = { VeiculosController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
@@ -64,12 +68,25 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+	
+	@Bean
+	public ViewResolver jasperReportsViewResolver(DataSource datasource) {
+		JasperReportsViewResolver resolver = new JasperReportsViewResolver();
+		resolver.setPrefix("classpath:/relatorios/");
+		resolver.setSuffix(".jasper");
+		resolver.setViewNames("relatorio_*");
+		resolver.setViewClass(JasperReportsMultiFormatView.class);
+		resolver.setJdbcDataSource(datasource);
+		resolver.setOrder(0);
+		return resolver;
+	}
 
 	@Bean
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
 		resolver.setCharacterEncoding("UTF-8");
+		resolver.setOrder(1);
 		return resolver;
 	}
 
@@ -108,6 +125,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new TransportadoraConverter());
 		conversionService.addConverter(new GrupoConverter());
+		conversionService.addConverter(new VeiculoConverter());
 		
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);

@@ -4,10 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,7 +30,7 @@ public class Movimentacao {
 	private LocalDateTime dataChegada;
 
 	@Column(name = "data_saida")
-	private LocalDateTime dataSaida;
+	private Date dataSaida = new Date();
 
 	@Column(name = "observacao_chegada")
 	private String observacaoChegada;
@@ -55,8 +52,9 @@ public class Movimentacao {
 	@Enumerated(EnumType.STRING)
 	private SituacaoVeiculo situacao;
 
-	@OneToMany(mappedBy = "movimentacao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ItemVeiculo> itens = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "codigo_veiculo")
+	private Veiculo veiculo;
 
 	@Transient
 	private String uuid;
@@ -83,11 +81,11 @@ public class Movimentacao {
 		this.dataChegada = dataChegada;
 	}
 
-	public LocalDateTime getDataSaida() {
+	public Date getDataSaida() {
 		return dataSaida;
 	}
 
-	public void setDataSaida(LocalDateTime dataSaida) {
+	public void setDataSaida(Date dataSaida) {
 		this.dataSaida = dataSaida;
 	}
 
@@ -139,14 +137,6 @@ public class Movimentacao {
 		this.situacao = situacao;
 	}
 
-	public List<ItemVeiculo> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemVeiculo> itens) {
-		this.itens = itens;
-	}
-
 	public String getUuid() {
 		return uuid;
 	}
@@ -171,13 +161,16 @@ public class Movimentacao {
 		this.horarioDaSaida = horarioDaSaida;
 	}
 
-	public boolean isNova() {
-		return codigo == null;
+	public Veiculo getVeiculo() {
+		return veiculo;
 	}
 
-	public void adicionarItens(List<ItemVeiculo> itens) {
-		this.itens = itens;
-		this.itens.forEach(i -> i.setMovimentacao(this));
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public boolean isNova() {
+		return codigo == null;
 	}
 	
 	public boolean isSalvarPermitido() {

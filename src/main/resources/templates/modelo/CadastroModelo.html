@@ -3,7 +3,9 @@
     xmlns:th="http://www.thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorator="'layout/LayoutPadrao'" 
-    xmlns:mendes="http://mendes.frigorifico.com">
+    xmlns:mendes="http://mendes.frigorifico.com"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -73,7 +75,8 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a type="button" class="btn btn-secondary btn-circle btn-sm" title="excluir"
-                                        th:href="@{/modelos/{codigo}(codigo=${modelo.codigo})}">
+                                        th:href="@{/modelos/{codigo}(codigo=${modelo.codigo})}"
+                                        sec:authorize="hasRole('ADMIN')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

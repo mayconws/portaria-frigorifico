@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout/LayoutPadrao" 
+    xmlns:mendes="http://mendes.frigorifico.com">
+
+<head>
+
+    <title>Relatório da Movimentação de Veículos</title>
+
+</head>
+
+<body>
+
+    <div layout:fragment="conteudo">
+    
+     <div class="offset-sm-5 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Relatório de Visitantes</h1>
+            <div class="align-items-center justify-content-between mb-4"></div>
+        </div>
+        <br>
+        
+       	<form method="POST" th:object="${periodoRelatorio}" th:action="@{/relatorios/controleVisitantes}">
+			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+			
+			
+				<div class="offsset-md-4 form-group ms-required">
+					<label class="control-label font-weight-bold" for="dataInicio">Período de Lançamento</label>
+					<div class="form-inline">
+						<input type="text" class="form-control js-date" 
+							id="dataInicio" th:field="*{dataInicio}" autocomplete="off"/>
+						<label for="a" class="control-label font-weight-bold">&nbsp; à &nbsp;</label>
+						<input type="text" class="form-control js-date" 
+							id="dataFim" th:field="*{dataFim}" autocomplete="off"/>
+					</div>
+				</div>
+			
+				
+			<button type="submit" class="btn btn-primary btn-sm">
+				<i class="fa fa-book" aria-hidden="true"></i> Emitir
+			</button>
+		</form>
+	       
+
+    </div>
+
+</body>
+
+</html>

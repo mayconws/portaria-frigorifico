@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.frigorifico.mendes.model.Motorista;
-import com.frigorifico.mendes.model.Veiculo;
 
 @Repository
 public interface Motoristas extends JpaRepository<Motorista, Long> {

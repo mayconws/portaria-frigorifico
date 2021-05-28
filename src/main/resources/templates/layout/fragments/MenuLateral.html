@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br" 
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:mendes="http://mendes.frigorifico.com">
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:mendes="http://mendes.frigorifico.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+ 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head></head>
 
@@ -47,13 +49,16 @@ xmlns:mendes="http://mendes.frigorifico.com">
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Opções:</h6>
-                    <a class="collapse-item" th:href="@{/grupos/novo}">Grupo</a>
+                    <a class="collapse-item" th:href="@{/grupos/novo}"
+                    	sec:authorize="hasRole('ADMIN')">Grupo</a>
                     <a class="collapse-item" th:href="@{/motoristas/novo}">Motorista</a>
                     <a class="collapse-item" th:href="@{/modelos/novo}">Modelo do Veículo</a>
-                    <a class="collapse-item" th:href="@{/permissoes/nova}">Permissão</a>
+                    <a class="collapse-item" th:href="@{/permissoes/nova}"
+                   		sec:authorize="hasRole('ADMIN')">Permissão</a>
                     <a class="collapse-item" th:href="@{/setores/novo}">Setor da Empresa</a>
                     <a class="collapse-item" th:href="@{/transportadoras/nova}">Transportadora</a>
-                    <a class="collapse-item" th:href="@{/usuarios/novo}">Usuário</a>
+                    <a class="collapse-item" th:href="@{/usuarios/novo}"
+                    	sec:authorize="hasRole('ADMIN')">Usuário</a>
                     <a class="collapse-item" th:href="@{/veiculos/novo}">Veículo</a>
                     <a class="collapse-item" th:href="@{/visitantes/novo}">Visitante</a>                   
                 </div>
@@ -93,21 +98,34 @@ xmlns:mendes="http://mendes.frigorifico.com">
         </li>
 
         <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr class="sidebar-divider d-none d-md-block" sec:authorize="hasRole('ADMIN')">
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <div class="sidebar-heading" sec:authorize="hasRole('ADMIN')">
             Relatórios
         </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-folder-open"></i>
-                <span>Movimentação</span>
-            </a>
-        </li>
+        
+        <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" 
+        	aria-expanded="true" aria-controls="collapseUtilities" sec:authorize="hasRole('ADMIN')"	>
+        <i class="fas fa-folder-open"></i>
+          <span>Movimentações</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opções:</h6>
+            <a class="collapse-item" th:href="@{/relatorios/controleVeiculos}"
+            	sec:authorize="hasRole('ADMIN')">Relatório de controle<br> de veículos</a>
+            <a class="collapse-item" th:href="@{/relatorios/controleVisitantes}"
+            	sec:authorize="hasRole('ADMIN')">Relatório de controle<br> de visitantes</a>
+            <a class="collapse-item" th:href="@{/relatorios/veiculos}"
+            	sec:authorize="hasRole('ADMIN')">Relatório de veículos</a>
+            <a class="collapse-item" th:href="@{/relatorios/visitantes}"
+            	sec:authorize="hasRole('ADMIN')">Relatório de visitantes</a>
+          </div>
+        </div>
+      </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
