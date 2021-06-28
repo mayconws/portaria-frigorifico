@@ -28,7 +28,7 @@ public class CadastroGrupoService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		grupos.delete(codigo);
+		grupos.deleteById(codigo);
 	}
 
 }

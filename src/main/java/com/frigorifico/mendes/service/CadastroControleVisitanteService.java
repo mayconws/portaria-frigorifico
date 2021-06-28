@@ -27,7 +27,7 @@ public class CadastroControleVisitanteService {
 			controleVisitante.setDataEntrada(LocalDateTime.now());
 			
 		} else {
-			Controle controleExistente = controles.findOne(controleVisitante.getCodigo());
+			Controle controleExistente = controles.getOne(controleVisitante.getCodigo());
 			controleVisitante.setDataEntrada(controleExistente.getDataEntrada());
 		}
 		
@@ -54,7 +54,7 @@ public class CadastroControleVisitanteService {
 	@PreAuthorize("#controle.usuario == principal.usuario or hasRole('CANCELAR_CONTROLE')")
 	@Transactional
 	public void cancelar(Controle controle) {
-		Controle controleExistente = controles.findOne(controle.getCodigo());
+		Controle controleExistente = controles.getOne(controle.getCodigo());
 		
 		controleExistente.setStatus(StatusVisitante.CANCELADO);
 		controles.save(controleExistente);
@@ -62,7 +62,7 @@ public class CadastroControleVisitanteService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		controles.delete(codigo);
+		controles.deleteById(codigo);
 	}
 
 }

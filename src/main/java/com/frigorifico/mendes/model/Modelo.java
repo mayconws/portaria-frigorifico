@@ -9,22 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "modelo")
 public class Modelo implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
-	
+
 	@OneToMany(mappedBy = "modelo")
 	private List<Veiculo> veiculos;
 
@@ -43,7 +42,7 @@ public class Modelo implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public List<Veiculo> getVeiculos() {
 		return veiculos;
 	}
@@ -51,7 +50,7 @@ public class Modelo implements Serializable {
 	public void setVeiculos(List<Veiculo> veiculos) {
 		this.veiculos = veiculos;
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -79,6 +78,6 @@ public class Modelo implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 
 }

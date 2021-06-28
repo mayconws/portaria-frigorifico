@@ -27,7 +27,7 @@ public class CadastroControleVeiculoService {
 			controleVeiculo.setDataChegada(LocalDateTime.now());
 			
 		} else {
-			Movimentacao movimentacaoExistente = movimentacoes.findOne(controleVeiculo.getCodigo());
+			Movimentacao movimentacaoExistente = movimentacoes.getOne(controleVeiculo.getCodigo());
 			controleVeiculo.setDataChegada(movimentacaoExistente.getDataChegada());
 		}
 		
@@ -49,7 +49,7 @@ public class CadastroControleVeiculoService {
 	@PreAuthorize("#movimentacao.usuario == principal.usuario or hasRole('CANCELAR_MOVIMENTACAO')")
 	@Transactional
 	public void cancelar(Movimentacao movimentacao) {
-		Movimentacao movimentacaoExistente = movimentacoes.findOne(movimentacao.getCodigo());
+		Movimentacao movimentacaoExistente = movimentacoes.getOne(movimentacao.getCodigo());
 		
 		movimentacaoExistente.setStatus(StatusVeiculo.CANCELADO);
 		movimentacoes.save(movimentacaoExistente);
@@ -57,7 +57,7 @@ public class CadastroControleVeiculoService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		movimentacoes.delete(codigo);
+		movimentacoes.deleteById(codigo);
 	}
 
 }

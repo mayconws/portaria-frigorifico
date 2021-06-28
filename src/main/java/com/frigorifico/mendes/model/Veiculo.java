@@ -14,9 +14,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
 import com.frigorifico.mendes.repository.listener.VeiculoEntityListener;
@@ -39,20 +39,20 @@ public class Veiculo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_modelo")
 	private Modelo modelo;
-	
+
 	@NotNull(message = "A transportadora é obrigatória")
 	@ManyToOne
 	@JoinColumn(name = "codigo_transportadora")
 	private Transportadora transportadora;
-	
+
 	private String foto;
 
 	@Column(name = "content_type")
 	private String contentType;
-	
+
 	@Transient
 	private boolean novaFoto;
-	
+
 	@Transient
 	private String urlFoto;
 
@@ -112,15 +112,15 @@ public class Veiculo implements Serializable {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
-	
+
 	public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "veiculo-mock.png";
 	}
-	
+
 	public boolean temFoto() {
 		return !StringUtils.isEmpty(this.foto);
 	}
-	
+
 	public boolean isNova() {
 		return codigo == null;
 	}
@@ -132,7 +132,7 @@ public class Veiculo implements Serializable {
 	public void setNovaFoto(boolean novaFoto) {
 		this.novaFoto = novaFoto;
 	}
-	
+
 	public String getUrlFoto() {
 		return urlFoto;
 	}

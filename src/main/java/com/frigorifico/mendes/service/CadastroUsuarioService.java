@@ -54,7 +54,7 @@ public class CadastroUsuarioService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		usuarios.delete(codigo);
+		usuarios.deleteById(codigo);
 	}
 
 }

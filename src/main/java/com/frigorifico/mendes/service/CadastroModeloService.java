@@ -28,7 +28,7 @@ public class CadastroModeloService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		modelos.delete(codigo);
+		modelos.deleteById(codigo);
 	}
 
 }

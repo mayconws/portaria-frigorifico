@@ -7,8 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "permissao")
@@ -19,7 +18,7 @@ public class Permissao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 
@@ -38,7 +37,7 @@ public class Permissao implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -66,6 +65,6 @@ public class Permissao implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}		
-	
+	}
+
 }

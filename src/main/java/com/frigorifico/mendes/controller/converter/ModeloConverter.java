@@ -1,10 +1,12 @@
 package com.frigorifico.mendes.controller.converter;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.frigorifico.mendes.model.Modelo;
 
+@Component
 public class ModeloConverter implements Converter<String, Modelo> {
 	
 	@Override

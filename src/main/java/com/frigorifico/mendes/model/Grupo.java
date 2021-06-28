@@ -11,8 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "grupo")
@@ -23,7 +22,7 @@ public class Grupo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 
@@ -54,7 +53,7 @@ public class Grupo implements Serializable {
 	public void setPermissoes(List<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -82,6 +81,6 @@ public class Grupo implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 
 }

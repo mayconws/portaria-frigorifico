@@ -28,7 +28,7 @@ public class CadastroMotoristaService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		motoristas.delete(codigo);
+		motoristas.deleteById(codigo);
 	}
 
 }

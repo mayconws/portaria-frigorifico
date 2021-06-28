@@ -28,7 +28,7 @@ public class CadastroSetorService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		setores.delete(codigo);
+		setores.deleteById(codigo);
 	}
 
 }

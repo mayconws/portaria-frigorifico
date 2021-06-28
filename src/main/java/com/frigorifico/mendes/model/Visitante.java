@@ -8,34 +8,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "visitante")
 public class Visitante implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
-	private String nome;	
-	
-	private String rg;	
-	
+	private String nome;
+
+	private String rg;
+
 	private String cpf;
-	
+
 	private String telefone;
-	
+
 	@NotBlank(message = "A empresa é obrigatório")
 	private String empresa;
-	
+
 	private String foto;
-	
+
 	@Column(name = "content_type")
 	private String contentType;
 
@@ -85,7 +85,7 @@ public class Visitante implements Serializable {
 
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
-	}	
+	}
 
 	public String getFoto() {
 		return foto;
@@ -102,10 +102,11 @@ public class Visitante implements Serializable {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+
 	public String getFotoOuMock() {
 		return !StringUtils.isEmpty(foto) ? foto : "visitante-mock.png";
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -133,6 +134,6 @@ public class Visitante implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 
 }

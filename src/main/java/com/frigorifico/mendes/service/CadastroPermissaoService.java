@@ -28,7 +28,7 @@ public class CadastroPermissaoService {
 	
 	@Transactional
 	public void excluir(Long codigo) {
-		permissoes.delete(codigo);
+		permissoes.deleteById(codigo);
 	}
 
 }

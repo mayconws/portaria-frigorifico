@@ -29,7 +29,7 @@ public class CadastroVisitanteService {
 
 	@Transactional
 	public void excluir(Long codigo) {
-		visitantes.delete(codigo);
+		visitantes.deleteById(codigo);
 	}
 
 }

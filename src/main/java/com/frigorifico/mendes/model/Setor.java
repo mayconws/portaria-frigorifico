@@ -8,22 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "setor")
 public class Setor implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
-	
+
 	@NotBlank(message = "O responsável do setor é obrigatório")
 	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
@@ -51,7 +50,7 @@ public class Setor implements Serializable {
 	public void setNomeResponsavel(String nomeResponsavel) {
 		this.nomeResponsavel = nomeResponsavel;
 	}
-	
+
 	public boolean isNovo() {
 		return codigo == null;
 	}
@@ -79,6 +78,6 @@ public class Setor implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 
 }
